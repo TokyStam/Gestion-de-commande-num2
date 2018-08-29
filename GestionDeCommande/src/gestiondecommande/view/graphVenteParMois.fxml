@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="537.0" maxWidth="867.0" minHeight="537.0" minWidth="867.0" prefHeight="537.0" prefWidth="867.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gestiondecommande.controller.GraphVenteParMoisController">
+   <children>
+      <BarChart fx:id="barChartParMois" layoutX="30.0" layoutY="118.0" prefHeight="378.0" prefWidth="782.0">
+         <xAxis>
+            <CategoryAxis fx:id="categoryAxis" side="BOTTOM" />
+         </xAxis>
+         <yAxis>
+            <NumberAxis fx:id="numberAxis" side="LEFT" />
+         </yAxis>
+      </BarChart>
+      <Label alignment="CENTER" layoutX="325.0" layoutY="24.0" text="Vente par mois pour chaque annee" textFill="#0f9cd1">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="537.0" maxWidth="867.0" minHeight="537.0" minWidth="867.0" prefHeight="537.0" prefWidth="867.0" stylesheets="@DarkTheme1.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gestiondecommande.controller.VenteController">
+   <children>
+      <BorderPane layoutX="228.0" layoutY="127.0" prefHeight="501.0" prefWidth="784.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <center>
+            <SplitPane dividerPositions="0.6265984654731458" prefHeight="160.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <items>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                     <children>
+                        <TableView fx:id="tableViewVente" layoutX="183.0" layoutY="126.0" prefHeight="451.0" prefWidth="522.0" styleClass="label-bright" stylesheets="@DarkTheme1.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0">
+                           <columns>
+                              <TableColumn fx:id="tabelColumnCodeVente" prefWidth="107.0" text="Code vente" />
+                              <TableColumn fx:id="tabelColumnValeur" prefWidth="122.0" text="Valeur" />
+                              <TableColumn fx:id="tabelColumnDateVente" prefWidth="136.0" text="Date vente" />
+                              <TableColumn fx:id="tabelColumnClient" prefWidth="119.0" text="Client" />
+                           </columns>
+                        </TableView>
+                        <HBox layoutX="141.0" layoutY="14.0" prefHeight="50.0" prefWidth="299.0">
+                           <children>
+                              <Button fx:id="buttonAjouter" mnemonicParsing="false" onAction="#handleButtonAjouter" text="Créer">
+                                 <HBox.margin>
+                                    <Insets left="20.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button fx:id="buttonModifier" mnemonicParsing="false" onAction="#handleButtonUpdate" text="Modifier">
+                                 <HBox.margin>
+                                    <Insets left="10.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button fx:id="buttonSuprimer" mnemonicParsing="false" onAction="#handleButtonDelete" text="Suprimer">
+                                 <HBox.margin>
+                                    <Insets left="10.0" />
+                                 </HBox.margin>
+                              </Button>
+                           </children>
+                        </HBox>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                     <children>
+                        <GridPane layoutX="32.0" layoutY="65.0" prefHeight="269.0" prefWidth="225.0">
+                           <children>
+                              <Label text="Code vente" />
+                              <Label text="Valeur" GridPane.rowIndex="1" />
+                              <Label text="Client" GridPane.rowIndex="3" />
+                              <Label stylesheets="@DarkTheme1.css" text="Payer" GridPane.rowIndex="4" />
+                              <Label fx:id="labelCodeVente" GridPane.columnIndex="1" />
+                              <Label fx:id="labelValeur" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <Label fx:id="labelClient" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <Label fx:id="labelPayer" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                              <Label fx:id="labelCategorie" text="Date vente" GridPane.rowIndex="2" />
+                              <Label fx:id="labelDateVente" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                           </children>
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="98.0" minWidth="10.0" prefWidth="79.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="130.0" minWidth="10.0" prefWidth="127.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                        </GridPane>
+                        <Label layoutX="81.0" layoutY="21.0" styleClass="label-header" text="Information en detaille" />
+                        <Button fx:id="buttonProduitCommande" layoutX="29.0" layoutY="421.0" mnemonicParsing="false" onAction="#handleButtonListeProduit" text="Produit commandé &gt;&gt;" />
+                     </children>
+                  </AnchorPane>
+               </items>
+            </SplitPane>
+         </center>
+         <top>
+            <HBox alignment="CENTER_LEFT" prefHeight="48.0" prefWidth="784.0" BorderPane.alignment="CENTER_LEFT">
+               <padding>
+                  <Insets left="100.0" />
+               </padding>
+            </HBox>
+         </top>
+      </BorderPane>
+   </children>
+</AnchorPane>

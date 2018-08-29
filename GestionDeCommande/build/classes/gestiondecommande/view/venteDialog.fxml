@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="460.0" prefWidth="405.0" stylesheets="@DarkTheme1.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gestiondecommande.controller.VenteDialogController">
+   <children>
+      <GridPane layoutX="39.0" layoutY="64.0" prefHeight="322.0" prefWidth="335.0">
+         <children>
+            <Label text="Client" GridPane.rowIndex="1" />
+            <Label text="Date" GridPane.rowIndex="2" />
+            <Label text="Payer" GridPane.rowIndex="3" />
+            <Label text="Produit" GridPane.rowIndex="4" />
+            <Label text="Itemes" GridPane.rowIndex="5" />
+            <Label text="Valeur" GridPane.rowIndex="6" />
+            <ComboBox fx:id="comboBoxClient" prefWidth="150.0" promptText="selectionner client" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <DatePicker fx:id="datePickerDateVente" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <CheckBox fx:id="chexkBoxPayer" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TableView fx:id="tableViewItemeVente" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+               <columns>
+                  <TableColumn fx:id="columnNomProduit" prefWidth="114.0" text="Produit" />
+                  <TableColumn fx:id="columnQteProduit" prefWidth="62.0" text="Quantite" />
+                  <TableColumn fx:id="columnValeurProduit" prefWidth="97.0" text="Valeur" />
+               </columns>
+            </TableView>
+            <TextField fx:id="textFieldValeurVente" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+               <children>
+                  <ComboBox fx:id="comboBoxProduit" prefHeight="25.0" prefWidth="179.0" promptText="selectionner produit" />
+                  <TextField fx:id="textFieldQteProduit" maxHeight="21.0" prefHeight="21.0" prefWidth="47.0" />
+                  <Button fx:id="buttonAddProduitIteme" mnemonicParsing="false" onAction="#handleButtonAddProduit" prefHeight="25.0" prefWidth="49.0" text="+" />
+               </children>
+            </HBox>
+         </children>
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="144.0" minWidth="10.0" prefWidth="60.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="275.0" minWidth="10.0" prefWidth="275.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints maxHeight="0.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="60.0" minHeight="10.0" prefHeight="26.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="58.0" minHeight="10.0" prefHeight="33.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="71.0" minHeight="10.0" prefHeight="22.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="85.0" minHeight="10.0" prefHeight="29.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="131.0" minHeight="10.0" prefHeight="131.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="47.0" minHeight="10.0" prefHeight="28.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+      </GridPane>
+      <Button fx:id="buttonConfirmerVente" layoutX="227.0" layoutY="404.0" mnemonicParsing="false" onAction="#handleConfirmerVente" text="Confirmer" />
+      <Button fx:id="buttonAnnulerVente" layoutX="316.0" layoutY="404.0" mnemonicParsing="false" onAction="#handleAnnulerVente" text="Anuuler" />
+      <Label layoutX="122.0" layoutY="14.0" prefHeight="32.0" prefWidth="150.0" text="Formulaire vente" textFill="#18b7ed">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

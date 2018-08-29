@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="537.0" prefWidth="1009.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gestiondecommande.controller.ConteneurController">
+   <children>
+      <BorderPane prefHeight="537.0" prefWidth="1009.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <left>
+          <AnchorPane maxWidth="180.0" minHeight="0.0" minWidth="135.0" prefHeight="160.0" prefWidth="180.0" BorderPane.alignment="CENTER">
+               <children>
+                  <VBox layoutY="-7.0" prefHeight="537.0" prefWidth="180.0" style="-fx-background-color: #363636;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-7.0">
+                     <children>
+                        <Button fx:id="buttonCategories" alignment="BASELINE_LEFT" maxHeight="65.0" maxWidth="180.0" minHeight="65.0" minWidth="135.0" mnemonicParsing="false" onAction="#handleCategories" prefHeight="65.0" prefWidth="180.0" style="-fx-background-color: #363636;" text="Categories" textFill="#f4fbff">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <padding>
+                              <Insets left="40.0" />
+                           </padding></Button>
+                        <Button fx:id="buttonPrdouits" alignment="BASELINE_LEFT" maxHeight="65.0" maxWidth="180.0" minHeight="65.0" minWidth="135.0" mnemonicParsing="false" onAction="#handleProduits" prefHeight="65.0" prefWidth="180.0" style="-fx-background-color: #363636;" text="Produits" textFill="#f4fbff">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                           <padding>
+                              <Insets left="40.0" />
+                           </padding></Button>
+                        <Button fx:id="buttonClients" alignment="BASELINE_LEFT" maxHeight="65.0" maxWidth="180.0" minHeight="65.0" minWidth="135.0" mnemonicParsing="false" onAction="#handleClients" prefHeight="65.0" prefWidth="180.0" style="-fx-background-color: #363636;" text="Clients" textFill="#f4fbff">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                           <padding>
+                              <Insets left="40.0" />
+                           </padding></Button>
+                        <Button fx:id="buttonVentes" alignment="BASELINE_LEFT" maxHeight="65.0" maxWidth="180.0" minHeight="65.0" minWidth="135.0" mnemonicParsing="false" onAction="#handleVentes" prefHeight="65.0" prefWidth="180.0" style="-fx-background-color: #363636;" text="Ventes" textFill="#f4fbff">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                           <padding>
+                              <Insets left="40.0" />
+                           </padding></Button>
+                        <Button fx:id="buttonDiagrammes" alignment="BASELINE_LEFT" maxHeight="65.0" maxWidth="180.0" minHeight="65.0" minWidth="135.0" mnemonicParsing="false" onAction="#handleDiagramme" prefHeight="65.0" prefWidth="180.0" style="-fx-background-color: #363636;" text="Diagrammes" textFill="#f4fbff">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                           <padding>
+                              <Insets left="40.0" />
+                           </padding></Button>
+                     </children>
+                     <padding>
+                        <Insets top="40.0" />
+                     </padding>
+                  </VBox>
+               </children>
+            </AnchorPane>
+         </left>
+         <center>
+          <AnchorPane fx:id="anchorPaneConeteneur" maxHeight="537.0" maxWidth="867.0" minHeight="300.0" minWidth="800.0" prefHeight="537.0" prefWidth="833.0" BorderPane.alignment="CENTER" />
+         </center>
+         <top>
+            <AnchorPane minHeight="7.0" style="-fx-background-color: #1ca1c5;" BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets left="180.0" />
+               </BorderPane.margin>
+               <padding>
+                  <Insets left="180.0" />
+               </padding>
+            </AnchorPane>
+         </top>
+      </BorderPane>
+      <AnchorPane fx:id="anchorPaneHover" prefHeight="55.0" prefWidth="5.0" style="-fx-background-color: #1ca1c5;" translateY="-100.0" />
+      <AnchorPane prefHeight="111.0" prefWidth="88.0" style="-fx-background-color: #1ca1c5;" AnchorPane.leftAnchor="200.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label layoutX="21.0" layoutY="39.0" prefHeight="55.0" prefWidth="60.0" text="GESTION">
+               <font>
+                  <Font name="Century Gothic Bold" size="13.0" />
+               </font>
+            </Label>
+            <Label layoutX="6.0" layoutY="85.0" text=" COMMANDE">
+               <font>
+                  <Font name="Century Gothic Bold" size="13.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
