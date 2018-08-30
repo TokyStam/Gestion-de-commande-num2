@@ -16,7 +16,8 @@
                <items>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                      <children>
-                        <TableView fx:id="tableViewVente" layoutX="183.0" layoutY="126.0" prefHeight="451.0" prefWidth="522.0" styleClass="label-bright" stylesheets="@DarkTheme1.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0">
+                        <Pagination fx:id="pagination" maxPageIndicatorCount="4" pageCount="0" prefHeight="488.0" prefWidth="539.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <TableView fx:id="tableViewVente" layoutX="183.0" layoutY="126.0" prefHeight="451.0" prefWidth="522.0" styleClass="label-bright" stylesheets="@DarkTheme1.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                            <columns>
                               <TableColumn fx:id="tabelColumnCodeVente" prefWidth="107.0" text="Code vente" />
                               <TableColumn fx:id="tabelColumnValeur" prefWidth="122.0" text="Valeur" />
@@ -44,6 +45,9 @@
                            </children>
                         </HBox>
                      </children>
+                     <padding>
+                        <Insets top="70.0" />
+                     </padding>
                   </AnchorPane>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                      <children>

@@ -24,12 +24,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Pagination;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
@@ -50,6 +51,8 @@ public class VenteController implements Initializable {
      private final itemeDeVenteDao itemeDeVenteDao = new itemeDeVenteDao();
      
      
+    @FXML
+    private Pagination pagination;
     @FXML
     private Button buttonAjouter;
     @FXML
@@ -81,6 +84,7 @@ public class VenteController implements Initializable {
     private TableColumn<Vente, String> tabelColumnDateVente;
     @FXML
     private TableColumn<Vente, String> tabelColumnClient;
+    
 
     public VenteController() throws SQLException {
         this.venteDao = new VenteDao();
@@ -101,14 +105,21 @@ public class VenteController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        afficherTableViewVente();
+        pagination.setPageFactory(this::afficherTableViewVente);
         
         // Listen for selection changes and show the person details when changed.
              tableViewVente.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> showVenteDetails(newValue));
         //menu clic droite
           tableViewVente.autosize();
+        //afficher la pagination
+       
     }    
+    //fonction pagination
+    private Node createPage(int pageIdex){
+       
+         return tableViewVente;
+    }
     //-----------------------action CRUD-----------------------------//
     @FXML
     private void handleButtonAjouter(ActionEvent event) throws SQLException {
@@ -130,7 +141,7 @@ public class VenteController implements Initializable {
                 produit.setCategorie(listeItemDeVente.getProduit().getCategorie());
                 produitDao.UpdateQte(produit);
             }
-            afficherTableViewVente();
+         pagination.setPageFactory(this::afficherTableViewVente);
         }
     }
 
@@ -149,8 +160,9 @@ public class VenteController implements Initializable {
                 for( ItemeDeVente listeItemDeVente:vente.getItemeDeVente()){
                     Produit produit = listeItemDeVente.getProduit();
                     ProduitDao produitDao = new ProduitDao();
-                    listeItemDeVente.setVente(venteDao.recupererDerniereVente());
-
+                    
+                    listeItemDeVente.setVente(vente);
+                   
                     itemeDeVenteDao.create(listeItemDeVente);
                    
                     redonnerQteProduit(vente.getTempeItemeDeVente());
@@ -159,7 +171,7 @@ public class VenteController implements Initializable {
                     produit.setCategorie(listeItemDeVente.getProduit().getCategorie());
                     produitDao.UpdateQte(produit);
                 }
-                afficherTableViewVente();
+              pagination.setPageFactory(this::afficherTableViewVente);
                 
             }
         }else{
@@ -198,7 +210,7 @@ public class VenteController implements Initializable {
                      itemeDeVenteDao.deleteOneItem(listeItemDeVente);
                   }
                 venteDao.delete(vente);
-                afficherTableViewVente();
+               pagination.setPageFactory(this::afficherTableViewVente);
         }else{
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("Aucun ligne de vente selectionné!!");
@@ -238,17 +250,27 @@ public class VenteController implements Initializable {
 }
     //---------------------fin action crud -------------------------//
     
-     public void afficherTableViewVente(){
+    //afficher les les contenues de vente sur la table vente
+     public Node afficherTableViewVente(int pageIndex){
         tabelColumnCodeVente.setCellValueFactory(new PropertyValueFactory<>("codeVente"));
         tabelColumnDateVente.setCellValueFactory(new PropertyValueFactory<>("dateVente"));
         tabelColumnValeur.setCellValueFactory(new PropertyValueFactory<>("TValeur"));
         tabelColumnClient.setCellValueFactory(new PropertyValueFactory<>("client"));
       
         listeVente = venteDao.listeVente();
-        ObservableListVente = FXCollections.observableArrayList(listeVente);
+       
+         int rowParPage = 2;
+         pagination.setPageCount((listeVente.size() / rowParPage) + 1);
+         int fromIndex = pageIndex * rowParPage;
+         int toIndex = Math.min(fromIndex + rowParPage, listeVente.size());
+         
+        ObservableListVente = FXCollections.observableArrayList(listeVente.subList(fromIndex, toIndex));
         tableViewVente.setItems(ObservableListVente);
+        
+        return tableViewVente;
     }
      
+     //afficher les information en detaille d une ligne de vente selectionnEe
       private void showVenteDetails(Vente vente) {
         if (vente != null) {
             // Fill the labels with info from the person object.
@@ -268,7 +290,7 @@ public class VenteController implements Initializable {
     }
       
       
-    //fomction qui permet d afficher la liste des produits commandes par un clients
+    //fomction qui permet d afficher la liste des produits commandes par un client
     @FXML
     private void handleButtonListeProduit(ActionEvent event) throws IOException{
          // Load the fxml file and create a new stage for the popup dialog.
@@ -286,12 +308,14 @@ public class VenteController implements Initializable {
             dialogStage.setTitle("Liste des produits");
             Scene scene = new Scene(page);
             dialogStage.setScene(scene);
+            dialogStage.setResizable(false);
             dialogStage.initModality(Modality.APPLICATION_MODAL.WINDOW_MODAL);
             dialogStage.initOwner(this.stage);
             
              // Set the user into the controller.
             ListeProduitDialogController controller = loader.getController();
             controller.setVente(vente);
+            controller.setListeProduit(venteDao.listeProduit(vente));
             
             dialogStage.showAndWait();
                  

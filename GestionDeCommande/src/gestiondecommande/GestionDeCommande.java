@@ -17,13 +17,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  *
  * @author johnyftr
  */
 public class GestionDeCommande extends Application {
-    
+    public Stage dialogStage = null;
     @Override
     public void start(Stage stage) throws Exception {    
          // Load the fxml file and create a new stage for the popup dialog.
@@ -31,7 +32,8 @@ public class GestionDeCommande extends Application {
         AnchorPane page = (AnchorPane) loader.load();
         
         // Create the dialog Stage.
-        Stage dialogStage = new Stage();
+//        Stage dialogStage = new Stage();
+        dialogStage = stage;
         dialogStage.setResizable(false);
         Scene scene = new Scene(page);
         dialogStage.setScene(scene);
@@ -39,7 +41,7 @@ public class GestionDeCommande extends Application {
         ConteneurController controller = loader.getController();
         controller.setStage(dialogStage);
         // Show the dialog and wait until the user closes it
-        dialogStage.showAndWait();
+        dialogStage.show();
         //----------------------------------
 //        Parent root = FXMLLoader.load(getClass().getResource("view/conteneur.fxml"));
 //        

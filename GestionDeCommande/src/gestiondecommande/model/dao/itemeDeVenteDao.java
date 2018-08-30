@@ -63,7 +63,7 @@ public class itemeDeVenteDao {
     }
       //suprimer un utilisateurString cle, int code
      public boolean deleteAllItemeDeVente(Vente vente){
-        String sql = "DELETE FROM itemeproduit WHERE cVente = ?";
+        String sql = "DELETE FROM itemeproduit WHERE cVente=?";
         
         try {
             PreparedStatement st = cnx.prepareStatement(sql);
@@ -132,4 +132,4 @@ public class itemeDeVenteDao {
          return resultat;
     }
 }
-
+ 

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
@@ -63,7 +65,7 @@
             </AnchorPane>
          </left>
          <center>
-          <AnchorPane fx:id="anchorPaneConeteneur" maxHeight="537.0" maxWidth="867.0" minHeight="300.0" minWidth="800.0" prefHeight="537.0" prefWidth="833.0" BorderPane.alignment="CENTER" />
+          <AnchorPane fx:id="anchorPaneConeteneur" maxHeight="537.0" maxWidth="867.0" minHeight="300.0" minWidth="800.0" prefHeight="537.0" prefWidth="833.0" stylesheets="@DarkTheme1.css" BorderPane.alignment="CENTER" />
          </center>
          <top>
             <AnchorPane minHeight="7.0" style="-fx-background-color: #1ca1c5;" BorderPane.alignment="CENTER">

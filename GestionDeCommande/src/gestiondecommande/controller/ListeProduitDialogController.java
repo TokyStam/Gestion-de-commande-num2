@@ -7,18 +7,21 @@ package gestiondecommande.controller;
 
 import gestiondecommande.model.dao.VenteDao;
 import gestiondecommande.model.dao.itemeDeVenteDao;
+import gestiondecommande.model.domain.ListeProduit;
 import gestiondecommande.model.domain.Vente;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 /**
  * FXML Controller class
@@ -27,10 +30,7 @@ import javafx.scene.control.TableView;
  */
 public class ListeProduitDialogController implements Initializable {
 
-     private List<Vente> listeVente;
-     private final VenteDao venteDao;
-     private ObservableList<Vente>ObservableListVente;
-     private final itemeDeVenteDao itemeDeVenteDao;
+     private ObservableList<ListeProduit> observableListeProduit;
     
     @FXML
     private Label labelCodeVente;
@@ -49,7 +49,7 @@ public class ListeProduitDialogController implements Initializable {
     @FXML
     private Label totalNet;
     @FXML
-    private TableView<Vente> tableViewListePorduit;
+    private TableView<ListeProduit> tableViewListePorduit;
     @FXML
     private TableColumn columnCodePro;
     @FXML
@@ -57,16 +57,30 @@ public class ListeProduitDialogController implements Initializable {
     @FXML
     private TableColumn columnPU;
     @FXML
-    private TableColumn columnQte;
+    private TableColumn<ListeProduit, String> columnQte;
     @FXML
-    private TableColumn columnSTotal;
+    private TableColumn<ListeProduit, Double> columnSTotal;
 
     private Vente vente;
+    private List<ListeProduit> listeProduit;
 
-    public ListeProduitDialogController() throws SQLException {
-        this.itemeDeVenteDao = new itemeDeVenteDao();
-        this.venteDao = new VenteDao();
+    public List<ListeProduit> getListeProduit() {
+        return listeProduit;
     }
+
+    public void setListeProduit(List<ListeProduit> listeProduit) {
+        this.listeProduit = listeProduit;
+        
+        columnCodePro.setCellValueFactory(new PropertyValueFactory<>("codePro"));
+        columnDesigantion.setCellValueFactory(new PropertyValueFactory<>("designation"));
+        columnPU.setCellValueFactory(new PropertyValueFactory<>("PU"));
+        columnQte.setCellValueFactory(new PropertyValueFactory<>("qteCommande"));
+        columnSTotal.setCellValueFactory(new PropertyValueFactory<>("valeur"));
+    
+        observableListeProduit = FXCollections.observableArrayList(this.listeProduit);
+        tableViewListePorduit.setItems(observableListeProduit);
+    }
+    
 
     public Vente getVente() {
         return vente;
@@ -78,12 +92,12 @@ public class ListeProduitDialogController implements Initializable {
         labelCodeVente.setText(Integer.toString(vente.getCodeVente()));
         dateVente.setText(String.valueOf(vente.getDateVente().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))));
         etatpayer.setText( vente.isPayer()? "Payé":"non");
+        totalNet.setText(String.format("%.2f", vente.getTValeur()));
         
         codeClient.setText(Integer.toString(vente.getClient().getCodeClient()));
         nomClient.setText(vente.getClient().getNom());
         numTel.setText(vente.getClient().getNumTel());
         CA.setText(Double.toString(vente.getClient().getChiffreDaffaire()));
-        
         
     }
     

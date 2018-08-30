@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
@@ -10,9 +11,9 @@
    <children>
       <BorderPane prefHeight="499.0" prefWidth="600.0" AnchorPane.bottomAnchor="-25.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #1ca1c5;;" styleClass="label-title" BorderPane.alignment="CENTER">
                <children>
-                  <Label layoutX="215.0" layoutY="14.0" styleClass="label-header" text="Produit commandé par un client" />
+                  <Label layoutX="174.0" layoutY="14.0" styleClass="label-header" text="Produit commandé par un client" />
                   <GridPane layoutX="31.0" layoutY="62.0" prefHeight="102.0" prefWidth="200.0">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -32,7 +33,7 @@
                         <Label fx:id="etatpayer" text=": " GridPane.columnIndex="1" GridPane.rowIndex="2" />
                      </children>
                   </GridPane>
-                  <GridPane layoutX="386.0" layoutY="53.0">
+                  <GridPane layoutX="386.0" layoutY="62.0">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -75,11 +76,14 @@
          <bottom>
             <AnchorPane prefHeight="71.0" prefWidth="600.0" BorderPane.alignment="CENTER">
                <children>
-                  <Label layoutX="424.0" layoutY="14.0" text="Totale :" />
+                  <Label layoutX="424.0" layoutY="14.0" styleClass="label-title" text="Totale :" />
                   <Label fx:id="totalNet" layoutX="515.0" layoutY="14.0" text="Label" />
                </children>
             </AnchorPane>
          </bottom>
       </BorderPane>
    </children>
+   <effect>
+      <ColorAdjust />
+   </effect>
 </AnchorPane>

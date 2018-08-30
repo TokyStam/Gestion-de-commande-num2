@@ -8,6 +8,7 @@ package gestiondecommande.model.dao;
 import gestiondecommande.model.database.ConnectionsDB;
 import gestiondecommande.model.domain.Client;
 import gestiondecommande.model.domain.ItemeDeVente;
+import gestiondecommande.model.domain.ListeProduit;
 import gestiondecommande.model.domain.Produit;
 import gestiondecommande.model.domain.Vente;
 import java.sql.Connection;
@@ -138,6 +139,35 @@ public class VenteDao {
             Logger.getLogger(ProduitDao.class.getName()).log(Level.SEVERE, null, ex);
         }
          return us;
+    }
+    
+     //show vnete
+    public List<ListeProduit> listeProduit(Vente vente){
+        String sql = "SELECT produits.numPro AS codePro, produits.designation AS designation, itemeproduit.quantite AS quantite, produits.prix AS PU, itemeproduit.quantite * produits.prix AS Valeur FROM itemeproduit, produits, vente WHERE (vente.cVente=" + vente.getCodeVente() + ") ANd (itemeproduit.cVente=vente.cVente) AND (itemeproduit.numPro=produits.numPro)";
+            PreparedStatement st;
+            List<ListeProduit> listeProduit = new ArrayList();
+             
+        try {
+            st = cnx.prepareStatement(sql);
+            ResultSet res = st.executeQuery();
+           
+            while(res.next()){
+                ListeProduit us = new ListeProduit(); 
+                
+                us.setCodePro(res.getInt("codePro"));
+                us.setDesignation(res.getString("designation"));
+                us.setQteCommande(res.getInt("quantite"));
+                us.setPU(res.getDouble("PU"));
+                us.setValeur(res.getDouble("valeur"));
+                us.setsTotal(res.getDouble("Valeur"));
+             
+                
+               listeProduit.add(us);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProduitDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         return listeProduit;
     }
     
     public Vente recupererDerniereVente(){

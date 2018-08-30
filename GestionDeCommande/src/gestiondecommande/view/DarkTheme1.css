@@ -1,8 +1,13 @@
 
 .background {
-    -fx-background-color: white;
+    -fx-background-image: url(sup.png);
 }
-
+.label-title{
+    -fx-font-size: 14pt;
+    -fx-font-family: "Segoe UI Light";
+    -fx-text-fill:  gray;
+    -fx-opacity: 1;
+}
 .label {
     -fx-font-size: 10pt;
     -fx-font-family: "Segoe UI Semibold";
@@ -87,7 +92,7 @@
 }
 
 .menu .left-container {
-    -fx-background-color: 0range;
+    -fx-background-color: orange;
 }
 
 .text-field {
