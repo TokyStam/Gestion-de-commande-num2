@@ -26,6 +26,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
@@ -41,6 +42,8 @@ public class CategorieController implements Initializable {
     //le conteneur
     @FXML
     private AnchorPane anchorPaneCategorie;
+    @FXML
+    private TextField textFieldSearch;
     
     //les bouton crud
     @FXML
@@ -171,6 +174,24 @@ public class CategorieController implements Initializable {
 
     }
     
+     //fonction recherche
+    @FXML
+    public void handleSearch() throws IOException{
+         
+           if(textFieldSearch.getText() != null ){
+                tableColumnCodeCategorie.setCellValueFactory(new PropertyValueFactory<>("codeCateg"));
+                tableColumnDesignation.setCellValueFactory(new PropertyValueFactory<>("designation"));
+
+                listeCategorie = null;
+                listeCategorie = categorieDao.rechercheCategorie(textFieldSearch.getText());
+                observableListCategorie = FXCollections.observableArrayList(listeCategorie);
+                tabelViewCategorie.setItems(observableListCategorie); 
+                
+           }else {
+               afficherTableViewCategorie();
+           }
+    }
+    
    // afficher le boite de dialogue
     public boolean showCategorieDialog(Categorie categorie) {
     try {
@@ -203,4 +224,5 @@ public class CategorieController implements Initializable {
         return false;
     }
 }
+    
 }

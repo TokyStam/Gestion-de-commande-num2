@@ -1,12 +1,24 @@
 
 package gestiondecommande.controller;
 
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 import gestiondecommande.model.dao.ProduitDao;
 import gestiondecommande.model.domain.Produit;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -17,6 +29,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -33,6 +46,9 @@ import javafx.stage.Stage;
  */
 public class ProduitController implements Initializable {
     
+    String  lesChamps[] = {"designation", "date debut stoque", "commentaire"};
+    @FXML
+    private ComboBox<String> comboBoxSearch;
     //les bouton crud
     @FXML
     private Button buttonAjouter;
@@ -73,6 +89,8 @@ public class ProduitController implements Initializable {
     private TableColumn<Produit, Integer> tabelColumnQteEnStk;
     @FXML
     private TableColumn<Produit, String> tabelColumnCategorie;
+    @FXML
+    private TableColumn tabelColumnAction;
     
       //les class utiles
     private List<Produit> listeProduit;
@@ -80,6 +98,7 @@ public class ProduitController implements Initializable {
     private ProduitDao produitDao;
     
     private Stage stage;
+    
 
     public ProduitController() throws SQLException {
         this.produitDao = new ProduitDao();
@@ -99,11 +118,12 @@ public class ProduitController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    
+        comboBoxSearch.setItems(FXCollections.observableArrayList(lesChamps));
         afficherTableViewProduit();
         
           tableViewProduit.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> showProduitDetails((Produit) newValue));
+          genererFacture();
     }    
     
      public void afficherTableViewProduit(){
@@ -214,5 +234,78 @@ public class ProduitController implements Initializable {
         e.printStackTrace();
         return false;
     }
+ }
+    
+        //fonction recherche
+    @FXML
+    public void handleSearch() throws IOException{
+         
+           if(textFieldSearch.getText() != null && comboBoxSearch.getSelectionModel().getSelectedItem() != null){
+                tabelColumnCodePro.setCellValueFactory(new PropertyValueFactory<>("codePro"));
+                tabelColumnDesignaion.setCellValueFactory(new PropertyValueFactory<>("designation"));
+                tabelColumnCodePU.setCellValueFactory(new PropertyValueFactory<>("prixU"));
+                tabelColumnQteEnStk.setCellValueFactory(new PropertyValueFactory<>("qteEnStk"));
+                tabelColumnCategorie.setCellValueFactory(new PropertyValueFactory<>("categorie"));
+
+                listeProduit = produitDao.searcProduits(comboBoxSearch.getSelectionModel().getSelectedItem(), textFieldSearch.getText());
+
+                observableListProduit = FXCollections.observableArrayList(listeProduit);
+                tableViewProduit.setItems(observableListProduit);
+                
+           }else {
+               afficherTableViewProduit();
+           }
+          
+    }
+    
+     public void genererFacture(){
+        Document document = new Document();
+        try 
+        {
+          PdfWriter.getInstance(document, new FileOutputStream("Produit.pdf"));
+          document.open();
+
+          document.add(premierTableau());
+
+        } catch (DocumentException d) {
+        
+        } catch (IOException de) {
+            de.printStackTrace();
+        } 
+
+        document.close();
+    }
+     
+     //Classe permmettant de déssiner un tableau.
+
+  public PdfPTable premierTableau()
+  {
+      //On créer un objet table dans lequel on intialise ça taille.
+      PdfPTable table = new PdfPTable(7);
+      
+       PdfPCell cell;
+      cell = new PdfPCell(new Phrase("Fusion de chaque première cellule de chaque colonne"));
+
+      table.addCell(cell);
+      
+      table.addCell("Designation");
+      table.addCell("Code categ");
+      table.addCell("P.U");
+      table.addCell("Qte en stoque");
+      table.addCell("Date stoque");
+      table.addCell("Commentaire");
+      
+      for(Produit produit: produitDao.listeProduits()){
+            table.addCell(Integer.toString(produit.getCodePro()));
+            table.addCell(produit.getDesignation());
+             table.addCell(produit.getCategorie().getDesignation());
+            table.addCell(Double.toString(produit.getPrixU()));
+            table.addCell(Double.toString(produit.getQteEnStk()));
+            table.addCell(String.valueOf(produit.getDateEnStk().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))));
+            table.addCell(produit.getCommentaire());
+           
+      }
+      return table;  
+  }
 }
-}
+    

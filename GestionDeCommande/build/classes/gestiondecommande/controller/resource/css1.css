@@ -1,0 +1,27 @@
+/*
+D:\Etude\Projet\netbeans\gestion de commande num2\Gestion-de-commande-num2\GestionDeCommande\src\gestiondecommande\controller\resource*/
+.label-header {
+    -fx-font-size: 14pt;
+    -fx-font-family: "Segoe UI Light";
+    -fx-text-fill: white;
+    -fx-opacity: 1;
+}
+
+.background-2 {
+    -fx-background-image: url(grisBleu2.jpg);
+    -fx-background-size: 867 537;
+}
+
+#label-titreFormulaire {
+    -fx-font-size: 16pt;
+    -fx-font-family: "tahoma UI Light";
+    -fx-text-fill: #6d9cda;
+    -fx-opacity: 1;
+}
+
+.label{
+    -fx-font-size: 12pt;
+    -fx-font-family: "Segoe UI Light";
+    -fx-text-fill: white;
+    -fx-opacity: 1;
+}

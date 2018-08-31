@@ -145,4 +145,26 @@ public class CategorieDao {
         }
          return resultat;
     }
+    
+     public List<Categorie> rechercheCategorie(String mot){
+        String sql = "SELECT*FROM categorie WHERE designation LIKE \'%" + mot + "%\'";
+         List<Categorie> resultat = new ArrayList<>();
+        try {
+            PreparedStatement st = cnx.prepareStatement(sql);
+            ResultSet res = st.executeQuery();
+            
+            while(res.next()){
+                Categorie us = new Categorie(); 
+                
+                us.setCodeCateg(res.getInt("codeCateg"));
+                us.setDesignation(res.getString("designation"));
+                us.setCommenataire(res.getString("commentaire"));
+                resultat.add(us);
+            }
+         
+        }catch(SQLException ex){
+            Logger.getLogger(Categorie.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         return resultat;
+     }
 }

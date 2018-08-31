@@ -1,11 +1,11 @@
 
 .background {
-    -fx-background-image: url(sup.png);
+    -fx-background-image: url(grisBleu1.png);
 }
-.label-title{
-    -fx-font-size: 14pt;
-    -fx-font-family: "Segoe UI Light";
-    -fx-text-fill:  gray;
+.label-welcom{
+    -fx-font-size: 70pt;
+    -fx-font-family: "tahoma UI Light";
+    -fx-text-fill: black;
     -fx-opacity: 1;
 }
 .label {
@@ -125,6 +125,7 @@
 .button:pressed, .button:default:hover:pressed {
   -fx-background-color: black;
   -fx-text-fill: white;
+  -fx-rotate: 10;
 }
 
 .button:focused {

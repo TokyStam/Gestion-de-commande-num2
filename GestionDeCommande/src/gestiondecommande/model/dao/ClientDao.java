@@ -129,6 +129,33 @@ public class ClientDao {
          return resultat;
     }
     
+    // chercher un client
+    public List<Client> searchClient(String column, String mot){
+        String sql = "SELECT *FROM user WHERE " + column + " LIKE '%" + mot + "%'";
+        List<Client> resultat = new ArrayList<>();
+        try {
+            PreparedStatement st = cnx.prepareStatement(sql);
+            ResultSet res = st.executeQuery();
+            
+            while(res.next()){
+                Client us = new Client();
+                ClientDao clientdao = new ClientDao();
+                
+                us.setCodeClient(res.getInt("id"));
+                us.setChiffreDaffaire(clientdao.chiffreDaffaire(us));
+                us.setNom(res.getString("nom"));
+                us.setNumTel(res.getString("numTel"));
+                us.setDateNais(res.getDate("dateNais").toLocalDate());
+                resultat.add(us);
+            }
+         
+        }catch(SQLException ex){
+            Logger.getLogger(ClientDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         return resultat;
+    }
+    
+    
      // liste les utlisateurs
     public Double chiffreDaffaire(Client client){
         String sql = "SELECT SUM(valeur) AS CA FROM vente WHERE codeUser=" + client.getCodeClient();

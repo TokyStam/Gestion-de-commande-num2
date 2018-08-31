@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -22,9 +23,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
@@ -70,6 +73,12 @@ public class ClientController implements Initializable {
     private Label labelCA;
     @FXML
     private Label labelNaissance;
+    @FXML
+    private TextField textFieldSearch;
+    @FXML
+    private ComboBox<String> comboBoxSearch;
+    String  lesChamps[] = {"nom", "numTel", "dateNais"};
+   
 
     public ClientController() throws SQLException {
         this.clientDao = new ClientDao();
@@ -91,10 +100,14 @@ public class ClientController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         afficherTableViewClient();
+        afficherListeSearch();
          // Listen for selection changes and show the person details when changed.
              tabelViewClient.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> showPersonDetails(newValue));
     }    
+      public void afficherListeSearch(){
+        comboBoxSearch.setItems(FXCollections.observableArrayList(lesChamps));
+      }
     
       public void afficherTableViewClient(){
         tableColumnCA.setCellValueFactory(new PropertyValueFactory<>("ChiffreDaffaire"));
@@ -204,6 +217,26 @@ public class ClientController implements Initializable {
             e.printStackTrace();
             return false;
         }
+    }
+    
+    //fonction recherche
+    @FXML
+    public void handleSearch() throws IOException{
+         
+           if(textFieldSearch.getText() != null && comboBoxSearch.getSelectionModel().getSelectedItem() != null){
+                tableColumnCA.setCellValueFactory(new PropertyValueFactory<>("ChiffreDaffaire"));
+                tableColumnCodeClient.setCellValueFactory(new PropertyValueFactory<>("codeClient"));
+                tableColumnNom.setCellValueFactory(new PropertyValueFactory<>("nom"));
+                tableColumnNumTel.setCellValueFactory(new PropertyValueFactory<>("numTel"));
+
+                Listclient = clientDao.searchClient(comboBoxSearch.getSelectionModel().getSelectedItem(), textFieldSearch.getText());
+                observableListClient = FXCollections.observableArrayList(Listclient);
+                tabelViewClient.setItems(observableListClient);
+                
+           }else {
+               afficherTableViewClient();
+           }
+          
     }
     
 }

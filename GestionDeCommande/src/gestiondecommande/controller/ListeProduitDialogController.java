@@ -5,15 +5,24 @@
  */
 package gestiondecommande.controller;
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
 import gestiondecommande.model.dao.VenteDao;
 import gestiondecommande.model.dao.itemeDeVenteDao;
 import gestiondecommande.model.domain.ListeProduit;
 import gestiondecommande.model.domain.Vente;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.TimeZone;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -101,13 +110,27 @@ public class ListeProduitDialogController implements Initializable {
         
     }
     
+    public void genererFacture(){
+        try {
+            Document document = new Document();
+            PdfWriter.getInstance(document, new FileOutputStream("r.pdf"));
+            Image img = Image.getInstance("grisBleu1.png");
+            document.add(img);
+            document.open();
+            document.add(new Paragraph("Hello word"));
+            document.close();
+        } catch (Exception e) {
+        }
+        
+    }
+    
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-       
+       genererFacture();
     }    
     
 }

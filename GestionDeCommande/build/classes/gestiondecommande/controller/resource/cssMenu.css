@@ -1,0 +1,14 @@
+/*
+D:\Etude\Projet\netbeans\gestion de commande num2\Gestion-de-commande-num2\GestionDeCommande\src\gestiondecommande\controller\resource*/
+
+.button {
+    -fx-background-color: darkslategrey;
+}
+
+.button:hover {
+    -fx-background-color: #eeeeee;
+}
+
+.button:pressed {
+   -fx-rotate: -5;
+}

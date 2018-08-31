@@ -5,6 +5,7 @@ import gestiondecommande.model.dao.CategorieDao;
 import gestiondecommande.model.dao.ProduitDao;
 import gestiondecommande.model.domain.Categorie;
 import gestiondecommande.model.domain.Produit;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.List;
@@ -19,6 +20,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 /**
@@ -28,6 +30,8 @@ import javafx.stage.Stage;
  */
 public class ProduitDialogController implements Initializable {
     
+    
+     
     @FXML
     private TextField textFieldCodeProduit;
     @FXML
@@ -81,7 +85,7 @@ public class ProduitDialogController implements Initializable {
             this.textFielPU.setText(Double.toString(produit.getPrixU()));
             this.datePickerDebeutStk.setValue(produit.getDateEnStk());
             this.textAreaCommentaire.setText(produit.getCommentaire());
-        }
+        } 
     }
 
 
@@ -106,13 +110,13 @@ public class ProduitDialogController implements Initializable {
     //bouton confirmer est clique
     public void handleButtonValider(){
       if(isInputValid()){
+            produit.setCategorie((Categorie)comboBoxCategorie.getSelectionModel().getSelectedItem());
             produit.setDesignation(textFielDesigantion.getText());
             produit.setCommentaire(textAreaCommentaire.getText());
             produit.setPrixU(Double.parseDouble(textFielPU.getText()));
             produit.setQteEnStk(Double.parseDouble(textFielQteEnStk.getText()));
             produit.setDateEnStk(datePickerDebeutStk.getValue());
-            produit.setCategorie((Categorie) comboBoxCategorie.getSelectionModel().getSelectedItem());
-
+            
             buttonValiderClicked = true;
             stage.close();
       }
@@ -184,4 +188,5 @@ public class ProduitDialogController implements Initializable {
             return false;
          }
     }
+    
 }

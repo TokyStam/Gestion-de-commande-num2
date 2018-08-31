@@ -8,6 +8,8 @@ package gestiondecommande.controller;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -35,11 +37,13 @@ public class ConteneurController implements Initializable {
     private Button buttonDiagrammes;
     @FXML
     private AnchorPane anchorPaneHover;
+  
     
     //l anchorpan conteneur
     @FXML
     private AnchorPane anchorPaneConeteneur;
-   
+     @FXML
+    private AnchorPane anchorPaneMenuBG;
    
     private Stage stage;
 
@@ -56,18 +60,32 @@ public class ConteneurController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-         
+           
+        try {
+            FXMLLoader l = new FXMLLoader(getClass().getResource("/gestiondecommande/view/pagedaccueil.fxml"));
+            AnchorPane b = (AnchorPane) l.load();
+            anchorPaneConeteneur.getChildren().setAll(b); 
+        } catch (IOException ex) {
+            Logger.getLogger(ConteneurController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+           
     }  
     
     @FXML
     public void handleCategories() throws IOException{
+       
+        
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/gestiondecommande/view/categorie.fxml"));;
         AnchorPane a = (AnchorPane) loader.load();
         CategorieController categorieController = loader.getController();
         categorieController.setStage(stage);
         anchorPaneConeteneur.getChildren().setAll(a); 
+        
         anchorPaneHover.setTranslateY(0);
         anchorPaneHover.setTranslateY(45);
+        
+        anchorPaneMenuBG.setTranslateY(0);
+        anchorPaneMenuBG.setTranslateY(45);
     }
     
     @FXML
@@ -77,8 +95,12 @@ public class ConteneurController implements Initializable {
         ProduitController produitController = loader.getController();
         produitController.setStage(stage);
         anchorPaneConeteneur.getChildren().setAll(a); 
+        
         anchorPaneHover.setTranslateY(0);
         anchorPaneHover.setTranslateY(110);
+        
+        anchorPaneMenuBG.setTranslateY(0);
+        anchorPaneMenuBG.setTranslateY(110);
     }
     
     @FXML
@@ -88,8 +110,12 @@ public class ConteneurController implements Initializable {
         ClientController clientController = loader.getController();
         clientController.setStage(stage);
         anchorPaneConeteneur.getChildren().setAll(a);
+        
         anchorPaneHover.setTranslateY(0);
-         anchorPaneHover.setTranslateY(175);
+        anchorPaneHover.setTranslateY(175);
+         
+        anchorPaneMenuBG.setTranslateY(0);
+        anchorPaneMenuBG.setTranslateY(175);
     }
     
     @FXML
@@ -100,15 +126,23 @@ public class ConteneurController implements Initializable {
         VenteController.setStage(stage);
         anchorPaneConeteneur.getChildren().setAll(a); 
         anchorPaneHover.setTranslateY(0);
-         anchorPaneHover.setTranslateY(240);
+        anchorPaneHover.setTranslateY(240);
+        
+        anchorPaneMenuBG.setTranslateY(0);
+        anchorPaneMenuBG.setTranslateY(240);
     }
     
     @FXML
     public void handleDiagramme() throws IOException{
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/gestiondecommande/view/graphVenteParMois.fxml"));;
         AnchorPane a = (AnchorPane) loader.load();
-        anchorPaneConeteneur.getChildren().setAll(a); 
+        anchorPaneConeteneur.getChildren().setAll(a);
+        
         anchorPaneHover.setTranslateY(0);
-         anchorPaneHover.setTranslateY(310);
+        anchorPaneHover.setTranslateY(310);
+        
+        anchorPaneMenuBG.setTranslateY(0);
+        anchorPaneMenuBG.setTranslateY(310);
     }
+    
 }

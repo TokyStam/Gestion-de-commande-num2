@@ -1,14 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.text.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="516.0" prefWidth="429.0" stylesheets="@DarkTheme1.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gestiondecommande.controller.ProduitDialogController">
+<AnchorPane id="AnchorPane" prefHeight="516.0" prefWidth="429.0" styleClass="background" stylesheets="@DarkTheme1.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gestiondecommande.controller.ProduitDialogController">
    <children>
       <GridPane layoutX="53.0" layoutY="74.0" prefHeight="361.0" prefWidth="324.0">
         <columnConstraints>
@@ -25,26 +33,30 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Code Produit" />
-            <Label text="Categorie" GridPane.rowIndex="1" />
-            <Label text="Desigantion" GridPane.rowIndex="2" />
-            <Label text="Prix unitaire" GridPane.rowIndex="3" />
-            <Label text="Qte en stoque" GridPane.rowIndex="4" />
-            <Label text="Date debut stk" GridPane.rowIndex="5" />
+            <Label styleClass="label-bright" text="Code Produit" />
+            <Label styleClass="label-bright" text="Categorie" GridPane.rowIndex="1" />
+            <Label styleClass="label-bright" text="Desigantion" GridPane.rowIndex="2" />
+            <Label styleClass="label-bright" text="Prix unitaire" GridPane.rowIndex="3" />
+            <Label styleClass="label-bright" text="Qte en stoque" GridPane.rowIndex="4" />
+            <Label styleClass="label-bright" text="Date debut stk" GridPane.rowIndex="5" />
             <TextField fx:id="textFieldCodeProduit" editable="false" GridPane.columnIndex="1" />
             <TextField fx:id="textFielDesigantion" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <TextField fx:id="textFielPU" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <TextField fx:id="textFielQteEnStk" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <Label text="Commentaire" GridPane.rowIndex="6" />
+            <Label styleClass="label-bright" text="Commentaire" GridPane.rowIndex="6" />
             <TextArea fx:id="textAreaCommentaire" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
             <DatePicker fx:id="datePickerDebeutStk" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <ComboBox fx:id="comboBoxCategorie" prefHeight="25.0" prefWidth="170.0" promptText="Selectionner Categorie" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
-      <Label layoutX="151.0" layoutY="23.0" styleClass="label-header" text="Formulaire produit" textFill="#18b7ed">
+      <Label layoutX="151.0" layoutY="23.0" text="Formulaire produit" textFill="#18b7ed">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
+         <styleClass>
+            <String fx:value="label-header" />
+            <String fx:value="label-header" />
+         </styleClass>
       </Label>
       <HBox alignment="CENTER_RIGHT" layoutX="151.0" layoutY="455.0" prefHeight="47.0" prefWidth="226.0">
          <children>
@@ -57,4 +69,7 @@
          </children>
       </HBox>
    </children>
+   <effect>
+      <InnerShadow />
+   </effect>
 </AnchorPane>

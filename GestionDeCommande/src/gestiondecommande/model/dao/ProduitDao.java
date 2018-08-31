@@ -171,4 +171,39 @@ public class ProduitDao {
         }
          return resultat;
     }
+    
+    // fonction recherche
+    public List<Produit> searcProduits(String column, String mot){
+       column  = (column == "date debut stoque")?"dateDebutStk" : column;
+       String sql = "SELECT *FROM produits WHERE " + column + " LIKE '%" + mot + "%'";
+        List<Produit> resultat = new ArrayList<>();
+        try {
+            PreparedStatement st = cnx.prepareStatement(sql);
+            ResultSet res = st.executeQuery();
+            
+            while(res.next()){
+                Produit us = new Produit(); 
+               //creation d un DAO pour ajouter un categorie a un produit
+                Categorie categ = new Categorie();
+                categ.setCodeCateg(res.getInt("codeCategorie"));
+                
+                CategorieDao categDao = new CategorieDao();
+                categ = categDao.showCategorie(categ);
+                
+                us.setCategorie(categ);
+                us.setCodePro(res.getInt("numPro"));
+                us.setDesignation(res.getString("designation"));
+                us.setPrixU(res.getDouble("prix"));
+                us.setCommentaire(res.getString("commentaire"));
+                us.setQteEnStk(res.getDouble("qteEnStk"));
+                us.setDateEnStk(res.getDate("dateDebutStk").toLocalDate());
+                
+                resultat.add(us);
+            }
+         
+        }catch(SQLException ex){
+            Logger.getLogger(ProduitDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         return resultat;
+    }
 }

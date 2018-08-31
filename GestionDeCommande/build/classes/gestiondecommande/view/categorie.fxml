@@ -1,14 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.text.*?>
-<?import javafx.geometry.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="anchorPaneCategorie" maxHeight="537.0" maxWidth="867.0" minHeight="537.0" minWidth="867.0" prefHeight="537.0" prefWidth="867.0" stylesheets="@DarkTheme1.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gestiondecommande.controller.CategorieController">
+<AnchorPane id="AnchorPane" fx:id="anchorPaneCategorie" maxHeight="537.0" maxWidth="867.0" minHeight="537.0" minWidth="867.0" prefHeight="537.0" prefWidth="867.0" stylesheets="@DarkTheme1.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gestiondecommande.controller.CategorieController">
    <children>
       <BorderPane layoutX="51.0" layoutY="44.0" prefHeight="454.0" prefWidth="628.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
@@ -16,6 +23,19 @@
                <padding>
                   <Insets left="100.0" />
                </padding>
+               <children>
+                  <Button fx:id="buttonAjouter" mnemonicParsing="false" onAction="#handleButtonAjouter" text="Ajouter">
+                     <HBox.margin>
+                        <Insets left="20.0" right="10.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="buttonModifier" mnemonicParsing="false" onAction="#handleButtonUpdate" text="Modifier">
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="buttonSuprimer" mnemonicParsing="false" onAction="#handleButtonDelete" text="Suprimer" />
+               </children>
             </HBox>
          </top>
          <center>
@@ -29,21 +49,8 @@
                             <TableColumn fx:id="tableColumnDesignation" minWidth="0.0" prefWidth="275.0" text="Designation" />
                           </columns>
                         </TableView>
-                        <HBox layoutX="139.0" layoutY="14.0" prefHeight="57.0" prefWidth="256.0">
-                           <children>
-                              <Button fx:id="buttonAjouter" mnemonicParsing="false" onAction="#handleButtonAjouter" text="Ajouter">
-                                 <HBox.margin>
-                                    <Insets left="20.0" right="10.0" />
-                                 </HBox.margin>
-                              </Button>
-                              <Button fx:id="buttonModifier" mnemonicParsing="false" onAction="#handleButtonUpdate" text="Modifier">
-                                 <HBox.margin>
-                                    <Insets right="10.0" />
-                                 </HBox.margin>
-                              </Button>
-                              <Button fx:id="buttonSuprimer" mnemonicParsing="false" onAction="#handleButtonDelete" text="Suprimer" />
-                           </children>
-                        </HBox>
+                        <HBox layoutX="139.0" layoutY="14.0" prefHeight="57.0" prefWidth="256.0" />
+                        <TextField fx:id="textFieldSearch" layoutX="292.0" layoutY="25.0" onKeyReleased="#handleSearch" promptText="Chercher categorie" />
                      </children>
                   </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" style="-fx-background-image: /gestiondecommande/resource/fondCode.jpg;">

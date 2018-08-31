@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="537.0" prefWidth="867.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="gestiondecommande.controller.PagedaccueilController">
+   <children>
+      <Label alignment="CENTER" layoutX="173.0" layoutY="57.0" prefHeight="50.0" prefWidth="537.0" styleClass="label-welcom" text="Gerer les commandes" textFill="#6d9cda">
+         <font>
+            <Font size="40.0" />
+         </font>
+         <effect>
+            <Reflection />
+         </effect>
+      </Label>
+   </children>
+</AnchorPane>
