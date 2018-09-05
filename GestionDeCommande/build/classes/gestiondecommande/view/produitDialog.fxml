@@ -33,17 +33,17 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label styleClass="label-bright" text="Code Produit" />
-            <Label styleClass="label-bright" text="Categorie" GridPane.rowIndex="1" />
-            <Label styleClass="label-bright" text="Desigantion" GridPane.rowIndex="2" />
-            <Label styleClass="label-bright" text="Prix unitaire" GridPane.rowIndex="3" />
-            <Label styleClass="label-bright" text="Qte en stoque" GridPane.rowIndex="4" />
-            <Label styleClass="label-bright" text="Date debut stk" GridPane.rowIndex="5" />
+            <Label text="Code Produit" />
+            <Label text="Categorie" GridPane.rowIndex="1" />
+            <Label text="Desigantion" GridPane.rowIndex="2" />
+            <Label text="Prix unitaire" GridPane.rowIndex="3" />
+            <Label text="Qte en stoque" GridPane.rowIndex="4" />
+            <Label text="Date debut stk" GridPane.rowIndex="5" />
             <TextField fx:id="textFieldCodeProduit" editable="false" GridPane.columnIndex="1" />
             <TextField fx:id="textFielDesigantion" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <TextField fx:id="textFielPU" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <TextField fx:id="textFielQteEnStk" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <Label styleClass="label-bright" text="Commentaire" GridPane.rowIndex="6" />
+            <Label text="Commentaire" GridPane.rowIndex="6" />
             <TextArea fx:id="textAreaCommentaire" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
             <DatePicker fx:id="datePickerDebeutStk" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <ComboBox fx:id="comboBoxCategorie" prefHeight="25.0" prefWidth="170.0" promptText="Selectionner Categorie" GridPane.columnIndex="1" GridPane.rowIndex="1" />

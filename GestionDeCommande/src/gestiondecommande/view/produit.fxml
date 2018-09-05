@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Pagination?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -15,6 +17,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" maxHeight="537.0" maxWidth="867.0" minHeight="537.0" minWidth="867.0" prefHeight="537.0" prefWidth="867.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gestiondecommande.controller.ProduitController">
    <children>
@@ -22,42 +25,57 @@
          <top>
             <HBox alignment="CENTER_LEFT" prefHeight="48.0" prefWidth="784.0" BorderPane.alignment="CENTER_LEFT">
                <padding>
-                  <Insets left="120.0" />
+                  <Insets left="180.0" />
                </padding>
                <children>
-                  <Button fx:id="buttonAjouter" mnemonicParsing="false" onAction="#handleButtonAjouter" text="Ajouter">
-                     <HBox.margin>
-                        <Insets left="20.0" />
-                     </HBox.margin>
+                  <Button fx:id="buttonAjouter" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleButtonAjouter" prefHeight="30.0" prefWidth="30.0" styleClass="button-crud" stylesheets="@DarkTheme1.css">
                      <graphic>
-                        <FontAwesomeIconView fill="#469cf8" glyphName="PLUS" />
+                        <FontAwesomeIconView fill="#042440" glyphName="PLUS" />
                      </graphic>
                   </Button>
-                  <Button fx:id="buttonModifier" mnemonicParsing="false" onAction="#handleButtonUpdate" text="Modifier">
+                  <Button fx:id="buttonModifier" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleButtonUpdate" prefHeight="30.0" prefWidth="30.0" styleClass="button-crud" stylesheets="@DarkTheme1.css">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
                      <graphic>
-                        <FontAwesomeIconView fill="#469cf8" glyphName="EDIT" />
+                        <FontAwesomeIconView fill="#042440" glyphName="EDIT" />
                      </graphic>
                   </Button>
-                  <Button fx:id="buttonSuprimer" mnemonicParsing="false" onAction="#handleButtonDelete" text="Suprimer">
+                  <Button fx:id="buttonSuprimer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleButtonDelete" prefHeight="30.0" prefWidth="30.0" styleClass="button-crud" stylesheets="@DarkTheme1.css">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
                      <graphic>
-                        <FontAwesomeIconView fill="#469cf8" />
+                        <FontAwesomeIconView fill="#042440" />
                      </graphic>
                   </Button>
                </children>
             </HBox>
          </top>
          <center>
-            <SplitPane dividerPositions="0.6265984654731458" prefHeight="160.0" prefWidth="200.0" stylesheets="@DarkTheme1.css" BorderPane.alignment="CENTER">
+            <SplitPane dividerPositions="0.6265984654731458" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="160.0" prefWidth="900.0" stylesheets="@DarkTheme1.css" BorderPane.alignment="CENTER">
               <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                      <children>
-                        <TableView fx:id="tableViewProduit" layoutX="183.0" layoutY="126.0" prefHeight="451.0" prefWidth="522.0" stylesheets="@DarkTheme1.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0">
+                        <HBox alignment="CENTER_RIGHT" layoutX="252.0" layoutY="140.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="466.0" stylesheets="@DarkTheme1.css" AnchorPane.leftAnchor="112.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-70.0">
+                           <children>
+                              <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="41.0" styleClass="menu-search" stylesheets="@DarkTheme1.css">
+                                 <graphic>
+                                    <FontAwesomeIconView fill="#908a8a" glyphName="SEARCH" size="20" />
+                                 </graphic>
+                              </Button>
+                              <TextField fx:id="textFieldSearch" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyReleased="#handleSearch" prefHeight="50.0" prefWidth="386.0" promptText="Recherche par critere" styleClass="text-field-search" stylesheets="@DarkTheme1.css">
+                                 <font>
+                                    <Font name="Calibri" size="14.0" />
+                                 </font></TextField>
+                              <ComboBox fx:id="comboBoxSearch" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleSearch" prefHeight="50.0" prefWidth="25.0" />
+                           </children>
+                           <styleClass>
+                              <String fx:value="menu-search-conteneur" />
+                              <String fx:value="menu-search" />
+                           </styleClass>
+                        </HBox>
+                        <TableView fx:id="tableViewProduit" layoutX="183.0" layoutY="126.0" prefHeight="451.0" prefWidth="522.0" stylesheets="@DarkTheme1.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-70.0">
                           <columns>
                             <TableColumn fx:id="tabelColumnCodePro" prefWidth="83.0" text="Code Pro" />
                             <TableColumn fx:id="tabelColumnDesignaion" prefWidth="111.0" text="Desigantion" />
@@ -66,13 +84,11 @@
                               <TableColumn fx:id="tabelColumnQteEnStk" prefWidth="115.0" text="Qte en Stoque" />
                           </columns>
                         </TableView>
-                        <HBox alignment="CENTER_RIGHT" layoutX="252.0" layoutY="14.0" prefHeight="62.0" prefWidth="286.0">
-                           <children>
-                              <TextField fx:id="textFieldSearch" onKeyReleased="#handleSearch" />
-                              <ComboBox fx:id="comboBoxSearch" onAction="#handleSearch" prefHeight="36.0" prefWidth="50.0" promptText="?" />
-                           </children>
-                        </HBox>
+                        <Pagination fx:id="pagination" maxPageIndicatorCount="4" pageCount="0" prefHeight="108.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                      </children>
+                     <padding>
+                        <Insets top="70.0" />
+                     </padding>
                   </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                      <children>

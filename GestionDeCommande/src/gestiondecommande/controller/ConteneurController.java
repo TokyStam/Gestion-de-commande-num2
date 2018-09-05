@@ -97,10 +97,10 @@ public class ConteneurController implements Initializable {
         anchorPaneConeteneur.getChildren().setAll(a); 
         
         anchorPaneHover.setTranslateY(0);
-        anchorPaneHover.setTranslateY(110);
+        anchorPaneHover.setTranslateY(108);
         
         anchorPaneMenuBG.setTranslateY(0);
-        anchorPaneMenuBG.setTranslateY(110);
+        anchorPaneMenuBG.setTranslateY(108);
     }
     
     @FXML
@@ -112,10 +112,10 @@ public class ConteneurController implements Initializable {
         anchorPaneConeteneur.getChildren().setAll(a);
         
         anchorPaneHover.setTranslateY(0);
-        anchorPaneHover.setTranslateY(175);
+        anchorPaneHover.setTranslateY(173);
          
         anchorPaneMenuBG.setTranslateY(0);
-        anchorPaneMenuBG.setTranslateY(175);
+        anchorPaneMenuBG.setTranslateY(173);
     }
     
     @FXML
@@ -126,10 +126,10 @@ public class ConteneurController implements Initializable {
         VenteController.setStage(stage);
         anchorPaneConeteneur.getChildren().setAll(a); 
         anchorPaneHover.setTranslateY(0);
-        anchorPaneHover.setTranslateY(240);
+        anchorPaneHover.setTranslateY(238);
         
         anchorPaneMenuBG.setTranslateY(0);
-        anchorPaneMenuBG.setTranslateY(240);
+        anchorPaneMenuBG.setTranslateY(238);
     }
     
     @FXML
@@ -139,10 +139,10 @@ public class ConteneurController implements Initializable {
         anchorPaneConeteneur.getChildren().setAll(a);
         
         anchorPaneHover.setTranslateY(0);
-        anchorPaneHover.setTranslateY(310);
+        anchorPaneHover.setTranslateY(304);
         
         anchorPaneMenuBG.setTranslateY(0);
-        anchorPaneMenuBG.setTranslateY(310);
+        anchorPaneMenuBG.setTranslateY(304);
     }
     
 }

@@ -7,6 +7,7 @@ package gestiondecommande.model.domain;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  *
@@ -18,6 +19,15 @@ public class Client implements Serializable{
     private Double chiffreDaffaire;
     private LocalDate dateNais;
     private String numTel;
+    private List<CAparAnnee> caParAnnee;
+
+    public List<CAparAnnee> getCaParAnnee() {
+        return caParAnnee;
+    }
+
+    public void setCaParAnnee(List<CAparAnnee> caParAnnee) {
+        this.caParAnnee = caParAnnee;
+    }
 
     public int getCodeClient() {
         return codeClient;

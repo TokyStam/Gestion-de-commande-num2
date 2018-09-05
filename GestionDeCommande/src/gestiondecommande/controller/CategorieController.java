@@ -20,10 +20,12 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Pagination;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -75,6 +77,8 @@ public class CategorieController implements Initializable {
     private CategorieDao categorieDao;
     
     private Stage stage;
+    @FXML
+    private Pagination pagination;
 
     public CategorieController() throws SQLException {
         this.categorieDao = new CategorieDao();
@@ -95,7 +99,7 @@ public class CategorieController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
            //afficher le tableau
-            afficherTableViewCategorie();
+            pagination.setPageFactory(this::afficherTableViewCategorie);
             
             //afficher la categorie en detaille
              tabelViewCategorie.getSelectionModel().selectedItemProperty().addListener(
@@ -104,14 +108,25 @@ public class CategorieController implements Initializable {
     }    
    
     //afficher dans table view les categories
-     public void afficherTableViewCategorie(){
+     public Node afficherTableViewCategorie(int pageIndex){
         tableColumnCodeCategorie.setCellValueFactory(new PropertyValueFactory<>("codeCateg"));
         tableColumnDesignation.setCellValueFactory(new PropertyValueFactory<>("designation"));
        
         listeCategorie = categorieDao.listeCategorie();
         
-        observableListCategorie = FXCollections.observableArrayList(listeCategorie);
-        tabelViewCategorie.setItems(observableListCategorie);       
+         int rowParPage = 2;
+         int addPagSuplem;
+         //verifier si le nombre de ligne dans la table est impaire 
+         if(listeCategorie.size() % 2 == 0 ) addPagSuplem = 0;
+         else addPagSuplem = 1;
+         
+         pagination.setPageCount((listeCategorie.size() / rowParPage) +addPagSuplem);
+         int fromIndex = pageIndex * rowParPage;
+         int toIndex = Math.min(fromIndex + rowParPage, listeCategorie.size());
+         
+        observableListCategorie = FXCollections.observableArrayList(listeCategorie.subList(fromIndex, toIndex));
+        tabelViewCategorie.setItems(observableListCategorie); 
+         return tabelViewCategorie;
     }
     
      //fonction qui permet d'afficher en detaille les categories
@@ -136,7 +151,7 @@ public class CategorieController implements Initializable {
         Categorie categorie = (Categorie) tabelViewCategorie.getSelectionModel().getSelectedItem();
         if(categorie != null){
                 categorieDao.delete(categorie);
-                afficherTableViewCategorie();
+                pagination.setPageFactory(this::afficherTableViewCategorie);
         }else{
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("Aucun categorie selectionne!!");
@@ -152,7 +167,7 @@ public class CategorieController implements Initializable {
         boolean buttonValiderClicked = showCategorieDialog(categorie);
         if(buttonValiderClicked){
             categorieDao.create(categorie);
-            afficherTableViewCategorie();
+            pagination.setPageFactory(this::afficherTableViewCategorie);
         }
     }
     
@@ -164,7 +179,7 @@ public class CategorieController implements Initializable {
             boolean buttonValiderClicked = showCategorieDialog(categorie);
             if(buttonValiderClicked){
                 categorieDao.Update(categorie);
-                afficherTableViewCategorie();
+                 pagination.setPageFactory(this::afficherTableViewCategorie);
             }
         }else{
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -188,7 +203,7 @@ public class CategorieController implements Initializable {
                 tabelViewCategorie.setItems(observableListCategorie); 
                 
            }else {
-               afficherTableViewCategorie();
+              pagination.setPageFactory(this::afficherTableViewCategorie);
            }
     }
     

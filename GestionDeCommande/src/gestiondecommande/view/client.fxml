@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Pagination?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -24,7 +27,26 @@
                <items>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                      <children>
-                        <TableView fx:id="tabelViewClient" layoutX="40.0" layoutY="63.0" prefHeight="466.0" prefWidth="415.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0">
+                        <Pagination fx:id="pagination" layoutY="70.0" maxPageIndicatorCount="4" pageCount="0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="70.0" />
+                        <HBox layoutX="327.0" layoutY="70.0" prefHeight="50.0" prefWidth="466.0" stylesheets="@DarkTheme1.css" AnchorPane.leftAnchor="112.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="41.0" styleClass="menu-search" stylesheets="@DarkTheme1.css">
+                                 <graphic>
+                                    <FontAwesomeIconView fill="#908a8a" glyphName="SEARCH" size="20" />
+                                 </graphic>
+                              </Button>
+                              <TextField fx:id="textFieldSearch" onKeyReleased="#handleSearch" prefHeight="50.0" prefWidth="386.0" promptText="Recherche par critere" styleClass="text-field-search" stylesheets="@DarkTheme1.css" HBox.hgrow="ALWAYS">
+                                 <font>
+                                    <Font name="Calibri" size="14.0" />
+                                 </font></TextField>
+                              <ComboBox fx:id="comboBoxSearch" minWidth="-Infinity" onAction="#handleSearch" prefHeight="60.0" prefWidth="25.0" promptText="??" HBox.hgrow="ALWAYS" />
+                           </children>
+                           <styleClass>
+                              <String fx:value="menu-search" />
+                              <String fx:value="menu-search-conteneur" />
+                           </styleClass>
+                        </HBox>
+                        <TableView fx:id="tabelViewClient" layoutX="40.0" layoutY="-54.0" prefHeight="466.0" prefWidth="588.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-70.0">
                            <columns>
                               <TableColumn fx:id="tableColumnCodeClient" prefWidth="104.0" text="Code client" />
                               <TableColumn fx:id="tableColumnNom" minWidth="0.0" prefWidth="149.0" text="Nom" />
@@ -32,46 +54,58 @@
                               <TableColumn fx:id="tableColumnCA" minWidth="0.0" prefWidth="134.0" text="Chiiffre d'affaire" />
                            </columns>
                         </TableView>
-                        <HBox layoutX="327.0" layoutY="14.0" prefHeight="51.0" prefWidth="247.0">
-                           <children>
-                              <TextField fx:id="textFieldSearch" onKeyReleased="#handleSearch" prefHeight="37.0" prefWidth="182.0" />
-                              <ComboBox fx:id="comboBoxSearch" onAction="#handleSearch" prefHeight="37.0" prefWidth="58.0" promptText="??" HBox.hgrow="ALWAYS" />
-                           </children>
-                        </HBox>
                      </children>
                   </AnchorPane>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                      <children>
-                        <GridPane layoutX="27.0" layoutY="76.0" prefHeight="220.0" prefWidth="240.0">
-                           <children>
-                              <Label text="Code client" />
-                              <Label text="Nom" GridPane.rowIndex="1" />
-                              <Label text="Num tel" GridPane.rowIndex="2" />
-                              <Label fx:id="labelCodeClient" GridPane.columnIndex="1" />
-                              <Label fx:id="labelNom" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                              <Label fx:id="labelNumTel" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                              <Label text="Chiffre d'affaire" GridPane.rowIndex="3" />
-                              <Label fx:id="labelCA" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                              <Label text="naissance" GridPane.rowIndex="4" />
-                              <Label fx:id="labelNaissance" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                           </children>
-                           <columnConstraints>
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="160.0" minWidth="10.0" prefWidth="102.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="203.0" minWidth="10.0" prefWidth="138.0" />
-                           </columnConstraints>
-                           <rowConstraints>
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                           </rowConstraints>
-                        </GridPane>
                         <Label layoutX="59.0" layoutY="33.0" styleClass="label-header" text="Information en detaille">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
+                        <SplitPane dividerPositions="0.5441478439425051" orientation="VERTICAL" prefHeight="488.0" prefWidth="279.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <items>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                                 <children>
+                                    <GridPane layoutX="25.0" layoutY="14.0" prefHeight="209.0" prefWidth="240.0">
+                                       <children>
+                                          <Label text="Code client" />
+                                          <Label text="Nom" GridPane.rowIndex="1" />
+                                          <Label text="Num tel" GridPane.rowIndex="2" />
+                                          <Label fx:id="labelCodeClient" GridPane.columnIndex="1" />
+                                          <Label fx:id="labelNom" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                          <Label fx:id="labelNumTel" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                          <Label text="Chiffre d'affaire" GridPane.rowIndex="3" />
+                                          <Label fx:id="labelCA" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                          <Label text="naissance" GridPane.rowIndex="4" />
+                                          <Label fx:id="labelNaissance" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                       </children>
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="160.0" minWidth="10.0" prefWidth="102.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="203.0" minWidth="10.0" prefWidth="138.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                    </GridPane>
+                                 </children>
+                              </AnchorPane>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                                 <children>
+                                    <TableView fx:id="tableViewCA" prefHeight="219.0" prefWidth="279.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                      <columns>
+                                        <TableColumn fx:id="tableColumnAnnee" prefWidth="103.0" text="Année" />
+                                        <TableColumn fx:id="tableColumnValeurCA" prefWidth="143.0" text="Chffre d'affaire" />
+                                      </columns>
+                                    </TableView>
+                                 </children>
+                              </AnchorPane>
+                          </items>
+                        </SplitPane>
                      </children>
                   </AnchorPane>
                </items>
@@ -80,21 +114,33 @@
          <top>
             <HBox alignment="CENTER_LEFT" prefHeight="48.0" prefWidth="628.0" BorderPane.alignment="CENTER">
                <BorderPane.margin>
-                  <Insets left="100.0" />
+                  <Insets />
                </BorderPane.margin>
                <children>
-                  <Button fx:id="buttonAjouter" mnemonicParsing="false" onAction="#handleButtonAjouter" text="Ajouter">
+                  <Button fx:id="buttonAjouter" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleButtonAjouter" prefHeight="30.0" prefWidth="30.0" styleClass="button-crud">
                      <HBox.margin>
                         <Insets left="20.0" right="10.0" />
                      </HBox.margin>
+                     <graphic>
+                        <FontAwesomeIconView fill="#042440" glyphName="PLUS" />
+                     </graphic>
                   </Button>
-                  <Button fx:id="buttonModifier" mnemonicParsing="false" onAction="#handleButtonUpdate" text="Modifier">
+                  <Button fx:id="buttonModifier" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleButtonUpdate" prefHeight="30.0" prefWidth="30.0" styleClass="button-crud">
                      <HBox.margin>
                         <Insets right="10.0" />
                      </HBox.margin>
+                     <graphic>
+                        <FontAwesomeIconView fill="#042440" glyphName="EDIT" />
+                     </graphic>
                   </Button>
-                  <Button fx:id="buttonSuprimer" mnemonicParsing="false" onAction="#handleButtonDelete" text="Suprimer" />
+                  <Button fx:id="buttonSuprimer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleButtonDelete" prefHeight="30.0" prefWidth="30.0" styleClass="button-crud">
+                     <graphic>
+                        <FontAwesomeIconView fill="#042440" />
+                     </graphic></Button>
                </children>
+               <padding>
+                  <Insets left="160.0" />
+               </padding>
             </HBox>
          </top>
       </BorderPane>

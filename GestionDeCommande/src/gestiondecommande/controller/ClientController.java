@@ -6,6 +6,7 @@
 package gestiondecommande.controller;
 
 import gestiondecommande.model.dao.ClientDao;
+import gestiondecommande.model.domain.CAparAnnee;
 import gestiondecommande.model.domain.Client;
 import java.io.IOException;
 import java.net.URL;
@@ -20,11 +21,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.Pagination;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -78,6 +81,15 @@ public class ClientController implements Initializable {
     @FXML
     private ComboBox<String> comboBoxSearch;
     String  lesChamps[] = {"nom", "numTel", "dateNais"};
+    @FXML
+    private Pagination pagination;
+    
+    @FXML
+    private TableView<CAparAnnee> tableViewCA;
+    @FXML
+    private TableColumn tableColumnAnnee;
+    @FXML
+    private TableColumn tableColumnValeurCA;
    
 
     public ClientController() throws SQLException {
@@ -99,26 +111,48 @@ public class ClientController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        afficherTableViewClient();
+        pagination.setPageFactory(this::afficherTableViewClient);
         afficherListeSearch();
          // Listen for selection changes and show the person details when changed.
              tabelViewClient.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> showPersonDetails(newValue));
+             
+             tabelViewClient.getSelectionModel().selectedItemProperty().addListener(
+                (observable, oldValue, newValue) -> afficherTableViewCA(newValue));
     }    
       public void afficherListeSearch(){
         comboBoxSearch.setItems(FXCollections.observableArrayList(lesChamps));
       }
     
-      public void afficherTableViewClient(){
+      public Node afficherTableViewClient(int pageIndex){
         tableColumnCA.setCellValueFactory(new PropertyValueFactory<>("ChiffreDaffaire"));
         tableColumnCodeClient.setCellValueFactory(new PropertyValueFactory<>("codeClient"));
         tableColumnNom.setCellValueFactory(new PropertyValueFactory<>("nom"));
         tableColumnNumTel.setCellValueFactory(new PropertyValueFactory<>("numTel"));
         
         Listclient = clientDao.listeClient();
-        observableListClient = FXCollections.observableArrayList(Listclient);
+         int rowParPage = 2;
+          int addPagSuplem;
+         //verifier si le nombre de ligne dans la table est impaire 
+         if(Listclient.size() % 2 == 0 ) addPagSuplem = 0;
+         else addPagSuplem = 1;
+         
+         pagination.setPageCount((Listclient.size() / rowParPage + addPagSuplem));
+         int fromIndex = pageIndex * rowParPage;
+         int toIndex = Math.min(fromIndex + rowParPage, Listclient.size());
+
+        observableListClient = FXCollections.observableArrayList(Listclient.subList(fromIndex, toIndex));
         tabelViewClient.setItems(observableListClient);
         
+        return tabelViewClient;
+    }
+       public Node afficherTableViewCA(Client client){
+        tableColumnAnnee.setCellValueFactory(new PropertyValueFactory<>("annee"));
+        tableColumnValeurCA.setCellValueFactory(new PropertyValueFactory<>("CA"));
+       
+        tableViewCA.setItems(FXCollections.observableArrayList(client.getCaParAnnee()));
+        
+        return tabelViewClient;
     }
        /**
      * afficher les listes de personnes.
@@ -152,7 +186,7 @@ public class ClientController implements Initializable {
         boolean buttonValiderClicked = showClientDialog(client);
         if(buttonValiderClicked){
             clientDao.create(client);
-            afficherTableViewClient();
+           pagination.setPageFactory(this::afficherTableViewClient);
         }
     }
     //boutton modifier client
@@ -163,7 +197,7 @@ public class ClientController implements Initializable {
             boolean buttonValiderClicked = showClientDialog(client);
             if(buttonValiderClicked){
                 clientDao.Update(client);
-                afficherTableViewClient();
+                 pagination.setPageFactory(this::afficherTableViewClient);
             }
         }else{
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -177,7 +211,7 @@ public class ClientController implements Initializable {
          Client client = tabelViewClient.getSelectionModel().getSelectedItem();
         if(client != null){
                 clientDao.delete(client);
-                afficherTableViewClient();
+                 pagination.setPageFactory(this::afficherTableViewClient);
         }else{
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("Aucun client selectionne!!");
@@ -234,7 +268,7 @@ public class ClientController implements Initializable {
                 tabelViewClient.setItems(observableListClient);
                 
            }else {
-               afficherTableViewClient();
+               pagination.setPageFactory(this::afficherTableViewClient);
            }
           
     }

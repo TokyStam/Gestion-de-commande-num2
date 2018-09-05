@@ -17,6 +17,15 @@ public class Categorie implements Serializable{
     private String designation;
     private List<Produit> listeProduit;
     private String commenataire;
+    private String codeString;
+
+    public String getCodeString() {
+        return codeString;
+    }
+
+    public void setCodeString(String codeString) {
+        this.codeString = codeString;
+    }
 
     public int getCodeCateg() {
         return codeCateg;

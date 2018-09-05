@@ -26,11 +26,13 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.Pagination;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -47,6 +49,9 @@ import javafx.stage.Stage;
 public class ProduitController implements Initializable {
     
     String  lesChamps[] = {"designation", "date debut stoque", "commentaire"};
+    
+    @FXML
+    private Pagination pagination;
     @FXML
     private ComboBox<String> comboBoxSearch;
     //les bouton crud
@@ -89,8 +94,6 @@ public class ProduitController implements Initializable {
     private TableColumn<Produit, Integer> tabelColumnQteEnStk;
     @FXML
     private TableColumn<Produit, String> tabelColumnCategorie;
-    @FXML
-    private TableColumn tabelColumnAction;
     
       //les class utiles
     private List<Produit> listeProduit;
@@ -119,14 +122,14 @@ public class ProduitController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         comboBoxSearch.setItems(FXCollections.observableArrayList(lesChamps));
-        afficherTableViewProduit();
+        pagination.setPageFactory(this::afficherTableViewProduit);
         
           tableViewProduit.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> showProduitDetails((Produit) newValue));
           genererFacture();
     }    
     
-     public void afficherTableViewProduit(){
+     public Node afficherTableViewProduit(int pageIndex){
         tabelColumnCodePro.setCellValueFactory(new PropertyValueFactory<>("codePro"));
         tabelColumnDesignaion.setCellValueFactory(new PropertyValueFactory<>("designation"));
         tabelColumnCodePU.setCellValueFactory(new PropertyValueFactory<>("prixU"));
@@ -134,9 +137,21 @@ public class ProduitController implements Initializable {
         tabelColumnCategorie.setCellValueFactory(new PropertyValueFactory<>("categorie"));
         
         listeProduit = produitDao.listeProduits();
-        observableListProduit = FXCollections.observableArrayList(listeProduit);
+        
+         int rowParPage = 2;
+         int addPagSuplem;
+         //verifier si le nombre de ligne dans la table est impaire 
+         if(listeProduit.size() % 2 == 0 ) addPagSuplem = 0;
+         else addPagSuplem = 1;
+         
+         pagination.setPageCount((listeProduit.size() / rowParPage) + addPagSuplem);
+         int fromIndex = pageIndex * rowParPage;
+         int toIndex = Math.min(fromIndex + rowParPage, listeProduit.size());
+         
+        observableListProduit = FXCollections.observableArrayList(listeProduit.subList(fromIndex, toIndex));
         tableViewProduit.setItems(observableListProduit);
         
+        return tableViewProduit;
     }
      
       private void showProduitDetails(Produit produit) {
@@ -167,14 +182,13 @@ public class ProduitController implements Initializable {
         Produit produit = (Produit) tableViewProduit.getSelectionModel().getSelectedItem();
         if(produit != null){
                 produitDao.delete(produit);
-                afficherTableViewProduit();
+                pagination.setPageFactory(this::afficherTableViewProduit);
         }else{
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("Aucun Produit selectionné!!");
             alert.show();
         }
-
-    }
+ }
      //ajouter un nouveau Produit
     @FXML
     public void handleButtonAjouter() throws IOException{
@@ -182,7 +196,7 @@ public class ProduitController implements Initializable {
         boolean buttonValiderClicked = showProduitDialog(produit);
         if(buttonValiderClicked){
             produitDao.create(produit);
-            afficherTableViewProduit();
+           pagination.setPageFactory(this::afficherTableViewProduit);
         }
     }
     
@@ -194,7 +208,7 @@ public class ProduitController implements Initializable {
             boolean buttonValiderClicked = showProduitDialog(produit);
             if(buttonValiderClicked){
                 produitDao.Update(produit);
-                afficherTableViewProduit();
+                pagination.setPageFactory(this::afficherTableViewProduit);
             }
         }else{
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -253,7 +267,7 @@ public class ProduitController implements Initializable {
                 tableViewProduit.setItems(observableListProduit);
                 
            }else {
-               afficherTableViewProduit();
+               pagination.setPageFactory(this::afficherTableViewProduit);
            }
           
     }
@@ -265,6 +279,7 @@ public class ProduitController implements Initializable {
           PdfWriter.getInstance(document, new FileOutputStream("Produit.pdf"));
           document.open();
 
+          document.add(new Paragraph("Porduiction"));
           document.add(premierTableau());
 
         } catch (DocumentException d) {
@@ -284,12 +299,12 @@ public class ProduitController implements Initializable {
       PdfPTable table = new PdfPTable(7);
       
        PdfPCell cell;
-      cell = new PdfPCell(new Phrase("Fusion de chaque première cellule de chaque colonne"));
+      cell = new PdfPCell(new Phrase("Code Pro"));
 
       table.addCell(cell);
       
       table.addCell("Designation");
-      table.addCell("Code categ");
+      table.addCell("Categorie");
       table.addCell("P.U");
       table.addCell("Qte en stoque");
       table.addCell("Date stoque");

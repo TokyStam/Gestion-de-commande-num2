@@ -10,12 +10,14 @@ import gestiondecommande.model.domain.Client;
 import gestiondecommande.model.domain.ItemeDeVente;
 import gestiondecommande.model.domain.ListeProduit;
 import gestiondecommande.model.domain.Produit;
+import gestiondecommande.model.domain.ProduitDate;
 import gestiondecommande.model.domain.Vente;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -234,5 +236,73 @@ public class VenteDao {
         }
     }
     
+     //show vnete
+    public List<ProduitDate> venteEntre2Date(Client client, LocalDate date1, LocalDate date2){
+        String sql = "Select *FROM vente, produits, itemeproduit, user WHERE\n" +
+" (user.id = vente.codeUser) AND (vente.cVente = itemeproduit.cVente) AND \n" +
+" (produits.numPro = itemeproduit.numPro) AND (user.id= "+client.getCodeClient()+") AND (vente.dateVente BETWEEN '"+date1+"' AND '"+date2+"')";
+            PreparedStatement st;
+             List<ProduitDate> resultat = new ArrayList();
+        try {
+            st = cnx.prepareStatement(sql);
+            ResultSet res = st.executeQuery();
+           
+            while(res.next()){
+                ProduitDate us = new ProduitDate();
+                
+                us.setCodePorduit(res.getInt("produits.numPro"));
+                us.setCodeVente(res.getInt("vente.cVente"));
+                us.setDesignation(res.getString("produits.designation"));
+                us.setDatevente(res.getDate("dateVente").toLocalDate());
+                us.setQteCommande(res.getDouble("itemeproduit.quantite"));
+                us.setSousValeur(res.getDouble("itemeproduit.valeur"));
+                resultat.add(us);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProduitDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         return resultat;
+    }
+    
+     //show vnete
+    public List<ProduitDate> venteParCritere(Client client, String critere, int date){
+        critere = critere == "Mois"? "month": "year";
+        String sql ="Select * FROM itemeproduit, produits, vente, user WHERE\n" +
+" (user.id = vente.codeUser) AND (vente.cVente = itemeproduit.cVente) AND \n" +
+" (produits.numPro = itemeproduit.numPro) AND (user.id="+client.getCodeClient()+") AND EXTRACT("+ critere +" from vente.dateVente) = '"+ date +"'";
+                PreparedStatement st;
+             List<ProduitDate> resultat = new ArrayList();
+        try {
+            st = cnx.prepareStatement(sql);
+            ResultSet res = st.executeQuery();
+           
+            while(res.next()){
+                ProduitDate us = new ProduitDate();
+                
+                us.setCodePorduit(res.getInt("produits.numPro"));
+                us.setCodeVente(res.getInt("vente.cVente"));
+                us.setDesignation(res.getString("produits.designation"));
+                us.setDatevente(res.getDate("dateVente").toLocalDate());
+                us.setQteCommande(res.getDouble("itemeproduit.quantite"));
+                us.setSousValeur(res.getDouble("itemeproduit.valeur"));
+                resultat.add(us);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProduitDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         return resultat;
+    }
+    
 }
 
+
+//vente dans between deux date 
+//
+
+
+
+//------------vente par moi ou par annnee
+//
+//Select * FROM itemeproduit, produits, vente, user WHERE
+// (user.id = vente.codeUser) AND (vente.cVente = itemeproduit.cVente) AND 
+// (produits.numPro = itemeproduit.numPro) AND (user.id=1) AND EXTRACT(month from vente.dateVente) = '09'

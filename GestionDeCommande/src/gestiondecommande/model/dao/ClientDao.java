@@ -6,6 +6,7 @@
 package gestiondecommande.model.dao;
 
 import gestiondecommande.model.database.ConnectionsDB;
+import gestiondecommande.model.domain.CAparAnnee;
 import gestiondecommande.model.domain.Client;
 import java.sql.Connection;
 import java.sql.Date;
@@ -121,6 +122,20 @@ public class ClientDao {
                 us.setNumTel(res.getString("numTel"));
                 us.setDateNais(res.getDate("dateNais").toLocalDate());
                 resultat.add(us);
+                //recuperer CA par Annee
+                sql = "Select EXTRACT(year from vente.dateVente) as Annee, SUM(vente.Valeur) as CA FROM vente, user WHERE\n" +
+" (user.id = vente.codeUser)  AND (user.id="+ us.getCodeClient() +") group by Annee";
+                 st = cnx.prepareStatement(sql);
+                 ResultSet res2 = st.executeQuery();
+                 List<CAparAnnee> caParAnnee = new ArrayList<>();
+                  while(res2.next()){
+                      CAparAnnee c = new CAparAnnee();
+                      c.setAnnee(res2.getString("Annee"));
+                      c.setCA(res2.getDouble("CA"));
+                      
+                      caParAnnee.add(c);
+                  }
+                  us.setCaParAnnee(caParAnnee);
             }
          
         }catch(SQLException ex){
@@ -148,7 +163,7 @@ public class ClientDao {
                 us.setDateNais(res.getDate("dateNais").toLocalDate());
                 resultat.add(us);
             }
-         
+           
         }catch(SQLException ex){
             Logger.getLogger(ClientDao.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -175,3 +190,10 @@ public class ClientDao {
     }
 }
 
+
+
+//------------chiffre d'affaire
+
+//Select EXTRACT(year from vente.dateVente) as Annee, SUM(vente.Valeur) as CA FROM vente, produits, itemeproduit, user WHERE
+// (user.id = vente.codeUser) AND (vente.cVente = itemeproduit.cVente) AND (vente.codeUser = 1) AND
+// (produits.numPro = itemeproduit.numPro) AND (user.id=1) group by EXTRACT(year from vente.dateVente) 

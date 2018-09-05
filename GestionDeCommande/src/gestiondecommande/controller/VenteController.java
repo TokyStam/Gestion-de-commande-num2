@@ -148,31 +148,39 @@ public class VenteController implements Initializable {
     @FXML
     private void handleButtonUpdate(ActionEvent event) throws SQLException {
          Vente vente = (Vente) tableViewVente.getSelectionModel().getSelectedItem();
+         Vente venteTemp = new Vente();
+         venteTemp = this.recopierQteProduit(vente, venteTemp);
+        
+         
         if(vente != null){
-            vente.setItemeDeVente(itemeDeVenteDao.listeProduitDeVente(vente));
+//            vente.setItemeDeVente(itemeDeVenteDao.listeProduitDeVente(vente));
+           
             boolean buttonValiderClicked = showVenteDialog(vente);
             if(buttonValiderClicked){
-                //enregistrer la vente tout d'abord
-                venteDao.update(vente);
-                //effacer les itemes de vente 
-                itemeDeVenteDao.deleteAllItemeDeVente(vente);
-                //renregistrer les itemes de vente
-                for( ItemeDeVente listeItemDeVente:vente.getItemeDeVente()){
-                    Produit produit = listeItemDeVente.getProduit();
-                    ProduitDao produitDao = new ProduitDao();
-                    
-                    listeItemDeVente.setVente(vente);
-                   
-                    itemeDeVenteDao.create(listeItemDeVente);
-                   
-                    redonnerQteProduit(vente.getTempeItemeDeVente());
-                    
-                    produit.setQteEnStk(produit.getQteEnStk() - listeItemDeVente.getQteCommande());
-                    produit.setCategorie(listeItemDeVente.getProduit().getCategorie());
-                    produitDao.UpdateQte(produit);
+                for(ItemeDeVente i:venteTemp.getItemeDeVente()){
+                    System.out.println("designationT : " + i.getProduit().getDesignation());
+                    System.out.println("Qte commande T ancien : " + i.getQteCommande());
                 }
-              pagination.setPageFactory(this::afficherTableViewVente);
-                
+//                 redonnerQteProduit(venteTemp.getItemeDeVente());
+//                //enregistrer la vente tout d'abord
+//                venteDao.update(vente);
+//                //effacer les itemes de vente 
+//                itemeDeVenteDao.deleteAllItemeDeVente(vente);
+//                //renregistrer les itemes de vente
+//                for( ItemeDeVente listeItemDeVente:vente.getItemeDeVente()){
+//                    Produit produit = listeItemDeVente.getProduit();
+//                    ProduitDao produitDao = new ProduitDao();
+//                    
+//                    listeItemDeVente.setVente(vente);
+//                   
+//                    itemeDeVenteDao.create(listeItemDeVente);
+//
+//                    produit.setQteEnStk(produit.getQteEnStk() - listeItemDeVente.getQteCommande());
+//                    produit.setCategorie(listeItemDeVente.getProduit().getCategorie());
+//                    produitDao.UpdateQte(produit);
+//                }
+//              pagination.setPageFactory(this::afficherTableViewVente);
+//                
             }
         }else{
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -190,6 +198,18 @@ public class VenteController implements Initializable {
             produit.setQteEnStk(itemeDeVente.getQteCommande() + produit.getQteEnStk());
             produitDao.UpdateQte(produit);        
         }
+    }
+      public void reduirQteProduit(List<ItemeDeVente> listeItemeDeVente) throws SQLException{
+        ProduitDao produitDao = new ProduitDao();
+        for(ItemeDeVente itemeDeVente:listeItemeDeVente){
+            Produit produit = itemeDeVente.getProduit();
+            produit.setQteEnStk(produit.getQteEnStk()- itemeDeVente.getQteCommande() );
+            produitDao.UpdateQte(produit);        
+        }
+    }
+       public Vente recopierQteProduit(Vente v1, Vente v2) throws SQLException{
+        v2.setItemeDeVente(v1.getItemeDeVente());
+        return v2;
     }
 
     @FXML
@@ -260,7 +280,12 @@ public class VenteController implements Initializable {
         listeVente = venteDao.listeVente();
        
          int rowParPage = 2;
-         pagination.setPageCount((listeVente.size() / rowParPage) + 1);
+         int addPagSuplem;
+         //verifier si le nombre de ligne dans la table est impaire 
+         if(listeVente.size() % 2 == 0 ) addPagSuplem = 0;
+         else addPagSuplem = 1;
+         
+         pagination.setPageCount((listeVente.size() / rowParPage) + addPagSuplem);
          int fromIndex = pageIndex * rowParPage;
          int toIndex = Math.min(fromIndex + rowParPage, listeVente.size());
          

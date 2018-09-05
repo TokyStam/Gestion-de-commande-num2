@@ -15,7 +15,7 @@
    <children>
       <BorderPane prefHeight="499.0" prefWidth="600.0" AnchorPane.bottomAnchor="-25.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #1ca1c5;;" styleClass="label-title" BorderPane.alignment="CENTER">
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="label-title" BorderPane.alignment="CENTER">
                <children>
                   <Label layoutX="174.0" layoutY="14.0" styleClass="label-header" text="Produit commandé par un client" />
                   <GridPane layoutX="31.0" layoutY="62.0" prefHeight="102.0" prefWidth="200.0">

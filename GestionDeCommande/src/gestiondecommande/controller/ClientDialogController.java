@@ -7,6 +7,9 @@ package gestiondecommande.controller;
 
 import gestiondecommande.model.dao.ClientDao;
 import gestiondecommande.model.domain.Client;
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -17,6 +20,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 /**
@@ -100,6 +104,24 @@ public class ClientDialogController implements Initializable {
     @FXML
     private void handleButtonFermer(ActionEvent event) {
         stage.close();
+    }
+    
+    //recuperer le photo de profile selectionneE
+    @FXML
+    private void handleButtonAddPhoto(ActionEvent event) throws IOException {
+         FileChooser fileChooser = new FileChooser();
+         fileChooser.setTitle("Selectionner un photo de profile");
+         
+         File file = fileChooser.showOpenDialog(stage);
+         //les extendion de l'image acceptE
+         fileChooser.getExtensionFilters().addAll(
+                 new FileChooser.ExtensionFilter("Fichier image", "*.jpg")
+         );
+         if(file != null){
+             System.out.println("chemin de fichier: " + file.getAbsolutePath());
+             System.out.println("chemin de fichier: " + file.getPath());
+             file.getAbsoluteFile();
+         }
     }
     
     private boolean isInputValid() {

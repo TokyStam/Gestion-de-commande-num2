@@ -4,8 +4,17 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/D:/Etude/Projet/netbeans/gestion%20de%20commande%20num2/Gestion-de-commande-num2/GestionDeCommande/src/gestiondecommande/controller/ListeProduitDialogController.java</file>
+            <file>file:/D:/Etude/Projet/netbeans/gestion%20de%20commande%20num2/Gestion-de-commande-num2/GestionDeCommande/src/gestiondecommande/model/domain/Client.java</file>
+            <file>file:/D:/Etude/Projet/netbeans/gestion%20de%20commande%20num2/Gestion-de-commande-num2/GestionDeCommande/src/gestiondecommande/controller/GraphVenteParMoisController.java</file>
+            <file>file:/D:/Etude/Projet/netbeans/gestion%20de%20commande%20num2/Gestion-de-commande-num2/GestionDeCommande/src/gestiondecommande/model/dao/VenteDao.java</file>
+            <file>file:/D:/Etude/Projet/netbeans/gestion%20de%20commande%20num2/Gestion-de-commande-num2/GestionDeCommande/src/gestiondecommande/controller/VenteController.java</file>
+            <file>file:/D:/Etude/Projet/netbeans/gestion%20de%20commande%20num2/Gestion-de-commande-num2/GestionDeCommande/src/gestiondecommande/model/domain/CAparAnnee.java</file>
+            <file>file:/D:/Etude/Projet/netbeans/gestion%20de%20commande%20num2/Gestion-de-commande-num2/GestionDeCommande/src/gestiondecommande/model/dao/ClientDao.java</file>
+            <file>file:/D:/Etude/Projet/netbeans/gestion%20de%20commande%20num2/Gestion-de-commande-num2/GestionDeCommande/src/gestiondecommande/controller/ClientController.java</file>
+            <file>file:/D:/Etude/Projet/netbeans/gestion%20de%20commande%20num2/Gestion-de-commande-num2/GestionDeCommande/src/gestiondecommande/controller/VenteDialogController.java</file>
+            <file>file:/D:/Etude/Projet/netbeans/gestion%20de%20commande%20num2/Gestion-de-commande-num2/GestionDeCommande/src/gestiondecommande/model/dao/ProduitDao.java</file>
             <file>file:/D:/Etude/Projet/netbeans/gestion%20de%20commande%20num2/Gestion-de-commande-num2/GestionDeCommande/src/gestiondecommande/controller/ProduitController.java</file>
-            <file>file:/D:/Etude/Projet/netbeans/gestion%20de%20commande%20num2/Gestion-de-commande-num2/GestionDeCommande/src/gestiondecommande/controller/ConteneurController.java</file>
+            <file>file:/D:/Etude/Projet/netbeans/gestion%20de%20commande%20num2/Gestion-de-commande-num2/GestionDeCommande/src/gestiondecommande/model/domain/ProduitDate.java</file>
         </group>
     </open-files>
 </project-private>

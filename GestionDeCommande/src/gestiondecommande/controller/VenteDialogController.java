@@ -5,6 +5,7 @@
  */
 package gestiondecommande.controller;
 
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import gestiondecommande.model.dao.ClientDao;
 import gestiondecommande.model.dao.ProduitDao;
 import gestiondecommande.model.domain.Client;
@@ -74,7 +75,12 @@ public class VenteDialogController implements Initializable {
     @FXML
     private Button buttonAddProduitIteme;
     @FXML
-    private Button buttonConfirmerVente;
+    private Button buttonConfir;
+    @FXML
+    private Button buttonEdit;
+    @FXML
+    private FontAwesomeIconView buttonDelete;
+
     @FXML
     private Button buttonAnnulerVente;
 
@@ -105,7 +111,6 @@ public class VenteDialogController implements Initializable {
           
          observableListItemeDeVentes= FXCollections.observableArrayList(vente.getItemeDeVente());
          tableViewItemeVente.setItems(observableListItemeDeVentes);
-         vente.setTempeItemeDeVente(vente.getItemeDeVente());
         
 //          for(ItemeDeVente listeItemeDeVente:vente.getItemeDeVente()){
 //               System.out.println("categorie 2: " + listeItemeDeVente.getProduit().getCategorie().getDesignation());
@@ -145,7 +150,7 @@ public class VenteDialogController implements Initializable {
         Produit produit;
         ItemeDeVente itemeDeVente = new ItemeDeVente();
         
-        if(comboBoxProduit.getSelectionModel().getSelectedItem() != null ){
+        if(comboBoxProduit.getSelectionModel().getSelectedItem() != null && textFieldQteProduit.getText() != null){
             produit = (Produit) comboBoxProduit.getSelectionModel().getSelectedItem();
             if(!isProduitExist(vente.getItemeDeVente(), produit)){
                 if(produit.getQteEnStk() >= Integer.parseInt(textFieldQteProduit.getText())){
@@ -184,7 +189,7 @@ public class VenteDialogController implements Initializable {
            Alert alert = new Alert(Alert.AlertType.ERROR);
            alert.initOwner(stage);
            alert.setHeaderText("Ajout de produit invalide");
-           alert.setContentText("Veuiller selectioner le produit à ajouter");
+           alert.setContentText("Veuiller selectioner le produit à ajouter ou verifier la quantité commandée par le client");
 
            alert.showAndWait();
         }
@@ -263,6 +268,44 @@ public class VenteDialogController implements Initializable {
             alert.showAndWait();
 
             return false;
+        }
+    }
+    
+      @FXML
+    private void handleEditPorduct(ActionEvent event) {
+        ItemeDeVente i  = tableViewItemeVente.getSelectionModel().getSelectedItem();
+        if( i != null){
+         comboBoxProduit.setValue(i.getProduit());
+         
+          vente.setTValeur(vente.getTValeur() - i.getSValeur());
+          textFieldValeurVente.setText(String.format("%.2f", vente.getTValeur()));
+          int index = tableViewItemeVente.getSelectionModel().getSelectedIndex() ;
+          vente.getItemeDeVente().remove(index);
+          observableListItemeDeVentes= FXCollections.observableArrayList(vente.getItemeDeVente());
+          tableViewItemeVente.setItems(observableListItemeDeVentes);
+          
+        }else{
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Aucun produit selectionné!!");
+            alert.show();
+        }
+    }
+
+    @FXML
+    private void handelDeleteProduct(ActionEvent event) {
+        ItemeDeVente i  = tableViewItemeVente.getSelectionModel().getSelectedItem();
+        if(i != null){ 
+         
+          vente.setTValeur(vente.getTValeur() - i.getSValeur());
+          textFieldValeurVente.setText(String.format("%.2f", vente.getTValeur()));
+          int index = tableViewItemeVente.getSelectionModel().getSelectedIndex() ;
+          vente.getItemeDeVente().remove(index);
+          observableListItemeDeVentes= FXCollections.observableArrayList(vente.getItemeDeVente());
+          tableViewItemeVente.setItems(observableListItemeDeVentes);
+        }else{
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Aucun produit selectionné!!");
+            alert.show();
         }
     }
     

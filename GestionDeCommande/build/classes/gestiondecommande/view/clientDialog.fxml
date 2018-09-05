@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
@@ -13,24 +12,27 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="347.0" prefWidth="447.0" stylesheets="@DarkTheme1.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gestiondecommande.controller.ClientDialogController">
+<AnchorPane id="AnchorPane" prefHeight="347.0" prefWidth="447.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gestiondecommande.controller.ClientDialogController">
    <children>
-      <GridPane layoutX="46.0" layoutY="84.0" prefHeight="194.0" prefWidth="274.0" stylesheets="@../controller/resource/css1.css">
+      <GridPane layoutX="46.0" layoutY="84.0" prefHeight="194.0" prefWidth="274.0">
          <children>
-            <Label id="label-testChamp" text="Code client" />
-            <Label id="label-testChamp" text="Nom" GridPane.rowIndex="1" />
-            <Label id="label-testChamp" text="Num Tel" GridPane.rowIndex="2" />
-            <TextField fx:id="textFieldCodeClient" editable="false" GridPane.columnIndex="1" />
-            <TextField fx:id="textFieldNom" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField fx:id="textFieldNumTel" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Label id="label-testChamp" text="Date de naissance" GridPane.rowIndex="3" />
-            <DatePicker fx:id="textFieldNaissance" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label id="label-testChamp" styleClass="label-header" text="Code client" GridPane.rowIndex="1" />
+            <Label id="label-testChamp" styleClass="label-header" text="Nom" GridPane.rowIndex="2" />
+            <Label id="label-testChamp" styleClass="label-header" text="Num Tel" GridPane.rowIndex="3" />
+            <TextField fx:id="textFieldCodeClient" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="textFieldNom" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="textFieldNumTel" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label id="label-testChamp" styleClass="label-header" text="Date de naissance" GridPane.rowIndex="4" />
+            <DatePicker fx:id="textFieldNaissance" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Button fx:id="buttonAddPhoto" mnemonicParsing="false" onAction="#handleButtonAddPhoto" prefHeight="25.0" prefWidth="92.0" text="Photo" GridPane.columnIndex="1" />
+            <Label text="Photo de profil" />
          </children>
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="148.0" minWidth="10.0" prefWidth="128.0" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="223.0" minWidth="10.0" prefWidth="148.0" />
          </columnConstraints>
          <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -53,9 +55,4 @@
          </font>
       </Label>
    </children>
-   <styleClass>
-      <String fx:value="background" />
-      <String fx:value="label-bright" />
-      <String fx:value="label-header" />
-   </styleClass>
 </AnchorPane>

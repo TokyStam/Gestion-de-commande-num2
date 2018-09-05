@@ -5,17 +5,21 @@
  */
 package gestiondecommande.controller;
 
+import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
-import gestiondecommande.model.dao.VenteDao;
-import gestiondecommande.model.dao.itemeDeVenteDao;
 import gestiondecommande.model.domain.ListeProduit;
+import gestiondecommande.model.domain.Produit;
 import gestiondecommande.model.domain.Vente;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.format.DateTimeFormatter;
@@ -110,19 +114,53 @@ public class ListeProduitDialogController implements Initializable {
         
     }
     
-    public void genererFacture(){
-        try {
-            Document document = new Document();
-            PdfWriter.getInstance(document, new FileOutputStream("r.pdf"));
-            Image img = Image.getInstance("grisBleu1.png");
-            document.add(img);
-            document.open();
-            document.add(new Paragraph("Hello word"));
-            document.close();
-        } catch (Exception e) {
-        }
+     public void genererFacture(){
+        Document document = new Document();
+        try 
+        {
+          PdfWriter.getInstance(document, new FileOutputStream("Facture"+ vente.getCodeVente() + vente.getClient() +".pdf"));
+          document.open();
+          
+          
+          document.add(premierTableau());
+
+        } catch (DocumentException d) {
         
+        } catch (IOException de) {
+            de.printStackTrace();
+        } 
+
+        document.close();
     }
+     
+     //Classe permmettant de déssiner un tableau.
+
+  public PdfPTable premierTableau()
+  {
+      //On créer un objet table dans lequel on intialise ça taille.
+      PdfPTable table = new PdfPTable(5);
+      
+       PdfPCell cell;
+      cell = new PdfPCell(new Phrase("Code Pro"));
+
+      table.addCell(cell);
+      
+      table.addCell("Designation");
+      table.addCell("P.U");
+      table.addCell("Quantite");
+      table.addCell("Totale");
+      
+      for(ListeProduit produit: this.listeProduit){
+            table.addCell(Integer.toString(produit.getCodePro()));
+            table.addCell(produit.getDesignation());
+            table.addCell(Double.toString(produit.getPU()));
+            table.addCell(Double.toString(produit.getQteCommande()));
+//            table.addCell(String.valueOf(produit.getDateEnStk().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))));
+            table.addCell(Double.toString(produit.getsTotal()));
+           
+      }
+      return table;  
+  }
     
     /**
      * Initializes the controller class.
@@ -130,7 +168,6 @@ public class ListeProduitDialogController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-       genererFacture();
     }    
     
 }

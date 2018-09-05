@@ -33,7 +33,7 @@
 .table-view {
     -fx-base: white;
     -fx-control-inner-background: white;
-    -fx-background-color: white;
+    -fx-background-color:  transparent; 
     -fx-table-cell-border-color: transparent;
     -fx-table-header-border-color: transparent;
     -fx-padding: 5;
@@ -52,19 +52,19 @@
         transparent
         derive(-fx-base, 80%) 
         transparent;
-    -fx-border-insets: 0 10 1 0;
+/*    -fx-border-insets: 0 10 1 0;*/
 }
 
 .table-view .column-header .label {
     -fx-font-size: 12pt;
     -fx-font-family: "Segoe UI Light";
-    -fx-text-fill: black;
+    -fx-text-fill: #0b4278;
     -fx-alignment: center-left;
     -fx-opacity: 1;
 }
 
 .table-view:focused .table-row-cell:filled:focused:selected {
-    -fx-background-color: -fx-focus-color;
+    -fx-background-color: gray;
 }
 
 .split-pane:horizontal > .split-pane-divider {
@@ -94,17 +94,35 @@
 .menu .left-container {
     -fx-background-color: orange;
 }
-
-.text-field {
-    -fx-font-size: 12pt;
-    -fx-font-family: "Segoe UI Semibold";
+.text-field-search {
+   -fx-background-color: transparent;
+   -fx-border: transparent;
 }
+
+.menu-search{
+    -fx-background-color: transparent;
+    -fx-border-bottom: transparent;
+    -fx-border: transparent;
+}
+
+.menu-search-conteneur{
+     -fx-border-color: 
+        transparent
+        transparent
+        derive(gray, 80%) 
+        transparent;
+}
+/*button action crud*/
+.button-crud{
+    -fx-background-radius: 100%;
+}
+
 
 /* 
  * Metro style Push Button
  * Author: Pedro Duque Vieira
  * http://pixelduke.wordpress.com/2012/10/23/jmetro-windows-8-controls-on-java/
- */
+ 
 .button {   
     -fx-border-color: transparent;
     -fx-border-width: 2;
@@ -149,4 +167,4 @@
 
 .button:default:hover {
     -fx-background-color: derive(-fx-focus-color,30%);
-}
+}*/
