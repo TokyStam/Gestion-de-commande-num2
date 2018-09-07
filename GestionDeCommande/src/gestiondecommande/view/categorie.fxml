@@ -31,7 +31,7 @@
                         <Insets left="20.0" right="10.0" />
                      </HBox.margin>
                      <graphic>
-                        <FontAwesomeIconView fill="#042440" glyphName="PLUS" />
+                        <FontAwesomeIconView fill="#232325" glyphName="PLUS" styleClass="icons" />
                      </graphic>
                   </Button>
                   <Button fx:id="buttonModifier" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleButtonUpdate" prefHeight="30.0" prefWidth="30.0" styleClass="button-crud">
@@ -39,12 +39,12 @@
                         <Insets right="10.0" />
                      </HBox.margin>
                      <graphic>
-                        <FontAwesomeIconView fill="#042440" glyphName="EDIT" />
+                        <FontAwesomeIconView fill="#232325" glyphName="EDIT" styleClass="icons" />
                      </graphic>
                   </Button>
-                  <Button fx:id="buttonSuprimer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleButtonDelete" prefHeight="30.0" prefWidth="30.0" styleClass="button-crud">
+                  <Button fx:id="buttonSuprimer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleButtonDelete" prefHeight="30.0" prefWidth="30.0" styleClass="button-crud" textFill="#cc5c5c">
                      <graphic>
-                        <FontAwesomeIconView />
+                        <FontAwesomeIconView fill="#232325" glyphName="REMOVE" styleClass="icons" />
                      </graphic></Button>
                </children>
                <opaqueInsets>
@@ -57,7 +57,7 @@
               <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                      <children>
-                        <HBox layoutX="167.0" layoutY="50.0" prefHeight="50.0" prefWidth="466.0" styleClass="menu-search-conteneur" AnchorPane.leftAnchor="112.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-70.0">
+                        <HBox layoutX="167.0" layoutY="50.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="466.0" styleClass="menu-search-conteneur" AnchorPane.leftAnchor="112.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-70.0">
                            <children>
                               <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="41.0" styleClass="menu-search" stylesheets="@DarkTheme1.css">
                                  <graphic>

@@ -179,7 +179,7 @@ public class ClientDao {
             PreparedStatement st = cnx.prepareStatement(sql);
             ResultSet res = st.executeQuery();
             
-            while(res.next()){
+            if(res.next()){
               resultat = res.getDouble("CA");
             }
          

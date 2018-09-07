@@ -25,6 +25,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Pagination;
@@ -131,8 +132,8 @@ public class ClientController implements Initializable {
         tableColumnNumTel.setCellValueFactory(new PropertyValueFactory<>("numTel"));
         
         Listclient = clientDao.listeClient();
-         int rowParPage = 2;
-          int addPagSuplem;
+         int rowParPage = 4;
+         int addPagSuplem;
          //verifier si le nombre de ligne dans la table est impaire 
          if(Listclient.size() % 2 == 0 ) addPagSuplem = 0;
          else addPagSuplem = 1;
@@ -210,8 +211,16 @@ public class ClientController implements Initializable {
     private void handleButtonDelete(ActionEvent event) {
          Client client = tabelViewClient.getSelectionModel().getSelectedItem();
         if(client != null){
-                clientDao.delete(client);
+             // Show the error message.
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Suprimer un client");
+            alert.setContentText("Voulez vous vraiment Suprimer '"+ client.getNom()+ "'");
+            alert.showAndWait();
+            if(alert.getResult() == ButtonType.OK){
+                 clientDao.delete(client);
                  pagination.setPageFactory(this::afficherTableViewClient);
+            }
+               
         }else{
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("Aucun client selectionne!!");

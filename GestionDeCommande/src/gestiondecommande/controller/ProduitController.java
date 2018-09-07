@@ -30,6 +30,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Pagination;
@@ -138,7 +139,7 @@ public class ProduitController implements Initializable {
         
         listeProduit = produitDao.listeProduits();
         
-         int rowParPage = 2;
+         int rowParPage = 4;
          int addPagSuplem;
          //verifier si le nombre de ligne dans la table est impaire 
          if(listeProduit.size() % 2 == 0 ) addPagSuplem = 0;
@@ -181,8 +182,15 @@ public class ProduitController implements Initializable {
     public void handleButtonDelete() throws IOException{
         Produit produit = (Produit) tableViewProduit.getSelectionModel().getSelectedItem();
         if(produit != null){
-                produitDao.delete(produit);
-                pagination.setPageFactory(this::afficherTableViewProduit);
+             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Suprimer un produit");
+            alert.setContentText("Voulez vous vraiment Suprimer '"+ produit.getDesignation()+ "'");
+            alert.showAndWait();
+            if(alert.getResult() == ButtonType.OK){
+                 produitDao.delete(produit);
+                 pagination.setPageFactory(this::afficherTableViewProduit);
+            }
+              
         }else{
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("Aucun Produit selectionné!!");

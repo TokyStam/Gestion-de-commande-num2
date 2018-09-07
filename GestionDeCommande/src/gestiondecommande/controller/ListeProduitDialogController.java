@@ -5,15 +5,18 @@
  */
 package gestiondecommande.controller;
 
+import com.itextpdf.text.Anchor;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Font;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import gestiondecommande.model.domain.Convert;
 import gestiondecommande.model.domain.ListeProduit;
 import gestiondecommande.model.domain.Produit;
 import gestiondecommande.model.domain.Vente;
@@ -31,6 +34,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -118,19 +122,70 @@ public class ListeProduitDialogController implements Initializable {
         Document document = new Document();
         try 
         {
-          PdfWriter.getInstance(document, new FileOutputStream("Facture"+ vente.getCodeVente() + vente.getClient() +".pdf"));
+          PdfWriter.getInstance(document, new FileOutputStream("Facture"+vente.getDateVente() +"_"+ vente.getCodeVente()+"_" + vente.getClient() +".pdf"));
           document.open();
+         
+          //titre du document
+          document.addTitle("Facture");
+          document.addSubject("Generation du facture d un client");
           
           
-          document.add(premierTableau());
+          
+          Paragraph fistPage = new Paragraph();
+          
 
-        } catch (DocumentException d) {
+          fistPage.add(new Paragraph(new Chunk("Facture", new Font(Font.FontFamily.TIMES_ROMAN, 18, Font.BOLD))));
+          fistPage.add(new Paragraph(" "));
+          fistPage.add(new Paragraph(" "));
+          
+          Paragraph p1 = new Paragraph();
+          p1.add(new Chunk("Code Commande : " + Integer.toString(vente.getCodeVente())));
+          fistPage.add(p1);
+    
+          
+          Paragraph p2 = new Paragraph();
+          p2.add(new Chunk("Date Commande : " + vente.getDateVente().toString()));
+          fistPage.add(p2);
+          
+          fistPage.add(new Paragraph(" "));
+          
+          Paragraph p3 = new Paragraph();
+          p3.add(new Chunk("Code client : " + Integer.toString(vente.getClient().getCodeClient())));
+          fistPage.add(p3);
+          
+          Paragraph p4 = new Paragraph();
+          p4.add(new Chunk("Nom : " + vente.getClient().getNom()));
+          fistPage.add(p4);
+
+          Paragraph p6 = new Paragraph();
+          p6.add(new Chunk("Tel : " + vente.getClient().getNumTel()));
+          fistPage.add(p6);
+          
+          fistPage.add(new Paragraph(" "));
+          fistPage.add(new Paragraph(" "));
+          
+          document.add(fistPage);
+             
+          document.add(premierTableau());
+          document.add(new Paragraph(""));
+
+          document.add(new Paragraph("Net a payer : " + Convert.FR(Double.toString(vente.getTValeur()))));
+
+        }catch (DocumentException d){
         
         } catch (IOException de) {
             de.printStackTrace();
         } 
 
         document.close();
+        
+        // Show the error message.
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+//            alert.initOwner(stage);
+            alert.setTitle("Generation pdf");
+            alert.setContentText("La facture est imprimer avec succes");
+
+            alert.showAndWait();
     }
      
      //Classe permmettant de déssiner un tableau.
@@ -159,6 +214,13 @@ public class ListeProduitDialogController implements Initializable {
             table.addCell(Double.toString(produit.getsTotal()));
            
       }
+      
+      table.addCell("");
+      table.addCell("");
+      table.addCell("");
+      table.addCell("Totale");
+      table.addCell(Double.toString(vente.getTValeur()));
+      
       return table;  
   }
     

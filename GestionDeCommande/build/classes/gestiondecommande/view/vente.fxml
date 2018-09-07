@@ -99,7 +99,7 @@
                         <Insets left="10.0" />
                      </HBox.margin>
                      <graphic>
-                        <FontAwesomeIconView fill="#042440" />
+                        <FontAwesomeIconView fill="#042440" glyphName="REMOVE" />
                      </graphic>
                   </Button>
                </children>

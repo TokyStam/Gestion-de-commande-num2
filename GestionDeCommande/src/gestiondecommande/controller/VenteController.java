@@ -28,6 +28,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.Pagination;
 import javafx.scene.control.TableColumn;
@@ -148,39 +149,40 @@ public class VenteController implements Initializable {
     @FXML
     private void handleButtonUpdate(ActionEvent event) throws SQLException {
          Vente vente = (Vente) tableViewVente.getSelectionModel().getSelectedItem();
-         Vente venteTemp = new Vente();
-         venteTemp = this.recopierQteProduit(vente, venteTemp);
-        
-         
+         vente.setTempeItemeDeVente(vente.getItemeDeVente());
         if(vente != null){
 //            vente.setItemeDeVente(itemeDeVenteDao.listeProduitDeVente(vente));
-           
             boolean buttonValiderClicked = showVenteDialog(vente);
             if(buttonValiderClicked){
-                for(ItemeDeVente i:venteTemp.getItemeDeVente()){
-                    System.out.println("designationT : " + i.getProduit().getDesignation());
-                    System.out.println("Qte commande T ancien : " + i.getQteCommande());
-                }
-//                 redonnerQteProduit(venteTemp.getItemeDeVente());
-//                //enregistrer la vente tout d'abord
-//                venteDao.update(vente);
-//                //effacer les itemes de vente 
-//                itemeDeVenteDao.deleteAllItemeDeVente(vente);
-//                //renregistrer les itemes de vente
-//                for( ItemeDeVente listeItemDeVente:vente.getItemeDeVente()){
-//                    Produit produit = listeItemDeVente.getProduit();
-//                    ProduitDao produitDao = new ProduitDao();
+
+                List<ItemeDeVente> ancienIteme = itemeDeVenteDao.listeProduitDeVente(vente);
+                redonnerQteProduit(ancienIteme);
+                //enregistrer la vente tout d'abord
+                venteDao.update(vente);
+                 //effacer les itemes de vente 
+                itemeDeVenteDao.deleteAllItemeDeVente(vente);
+               
+                //renregistrer les itemes de vente
+                for( ItemeDeVente listeItemDeVente:vente.getItemeDeVente()){
+                    ProduitDao produitDao = new ProduitDao();
+                    Produit p1 = listeItemDeVente.getProduit();
+                    Produit produit = produitDao.showProduit(p1);
+                    
+                    System.out.println("quantite de produit: "+ produit.getQteEnStk());
+                   
 //                    
-//                    listeItemDeVente.setVente(vente);
-//                   
-//                    itemeDeVenteDao.create(listeItemDeVente);
-//
-//                    produit.setQteEnStk(produit.getQteEnStk() - listeItemDeVente.getQteCommande());
-//                    produit.setCategorie(listeItemDeVente.getProduit().getCategorie());
-//                    produitDao.UpdateQte(produit);
-//                }
-//              pagination.setPageFactory(this::afficherTableViewVente);
-//                
+                    listeItemDeVente.setVente(vente);
+                   
+                    itemeDeVenteDao.create(listeItemDeVente);
+                    System.out.println("final quantite commande: "+ listeItemDeVente.getQteCommande());
+                     System.out.println("quantite de produit: "+ produit.getQteEnStk());
+                    produit.setQteEnStk(produit.getQteEnStk() - listeItemDeVente.getQteCommande());
+                    produit.setCategorie(listeItemDeVente.getProduit().getCategorie());
+                    produitDao.UpdateQte(produit);
+                }
+               
+              pagination.setPageFactory(this::afficherTableViewVente);
+                
             }
         }else{
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -196,20 +198,9 @@ public class VenteController implements Initializable {
         for(ItemeDeVente itemeDeVente:listeItemeDeVente){
             Produit produit = itemeDeVente.getProduit();
             produit.setQteEnStk(itemeDeVente.getQteCommande() + produit.getQteEnStk());
-            produitDao.UpdateQte(produit);        
+            produitDao.UpdateQte(produit);
+            System.out.println("Qte produit redonnee : "+   produit.getQteEnStk());
         }
-    }
-      public void reduirQteProduit(List<ItemeDeVente> listeItemeDeVente) throws SQLException{
-        ProduitDao produitDao = new ProduitDao();
-        for(ItemeDeVente itemeDeVente:listeItemeDeVente){
-            Produit produit = itemeDeVente.getProduit();
-            produit.setQteEnStk(produit.getQteEnStk()- itemeDeVente.getQteCommande() );
-            produitDao.UpdateQte(produit);        
-        }
-    }
-       public Vente recopierQteProduit(Vente v1, Vente v2) throws SQLException{
-        v2.setItemeDeVente(v1.getItemeDeVente());
-        return v2;
     }
 
     @FXML
@@ -217,8 +208,12 @@ public class VenteController implements Initializable {
         Vente vente = tableViewVente.getSelectionModel().getSelectedItem();
         
         if(vente != null){
-              
-                  //resinitialiser la quantite
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Suprimer une commande");
+            alert.setContentText("Voulez vous vraiment Suprimer la commande numero: '"+ vente.getCodeVente()+ "'");
+            alert.showAndWait();
+            if(alert.getResult() == ButtonType.OK){
+                //resinitialiser la quantite
                   for( ItemeDeVente listeItemDeVente:vente.getItemeDeVente()){
                       Produit produit = listeItemDeVente.getProduit();
                       ProduitDao produitDao = new ProduitDao();
@@ -230,7 +225,10 @@ public class VenteController implements Initializable {
                      itemeDeVenteDao.deleteOneItem(listeItemDeVente);
                   }
                 venteDao.delete(vente);
-               pagination.setPageFactory(this::afficherTableViewVente);
+                pagination.setPageFactory(this::afficherTableViewVente);
+            }
+              
+                 
         }else{
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("Aucun ligne de vente selectionné!!");
@@ -279,7 +277,7 @@ public class VenteController implements Initializable {
       
         listeVente = venteDao.listeVente();
        
-         int rowParPage = 2;
+         int rowParPage = 4;
          int addPagSuplem;
          //verifier si le nombre de ligne dans la table est impaire 
          if(listeVente.size() % 2 == 0 ) addPagSuplem = 0;

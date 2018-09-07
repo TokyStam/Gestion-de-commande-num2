@@ -28,7 +28,7 @@
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                      <children>
                         <Pagination fx:id="pagination" layoutY="70.0" maxPageIndicatorCount="4" pageCount="0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="70.0" />
-                        <HBox layoutX="327.0" layoutY="70.0" prefHeight="50.0" prefWidth="466.0" stylesheets="@DarkTheme1.css" AnchorPane.leftAnchor="112.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <HBox layoutX="327.0" layoutY="70.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="466.0" stylesheets="@DarkTheme1.css" AnchorPane.leftAnchor="112.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="41.0" styleClass="menu-search" stylesheets="@DarkTheme1.css">
                                  <graphic>
@@ -135,7 +135,7 @@
                   </Button>
                   <Button fx:id="buttonSuprimer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleButtonDelete" prefHeight="30.0" prefWidth="30.0" styleClass="button-crud">
                      <graphic>
-                        <FontAwesomeIconView fill="#042440" />
+                        <FontAwesomeIconView fill="#042440" glyphName="REMOVE" />
                      </graphic></Button>
                </children>
                <padding>

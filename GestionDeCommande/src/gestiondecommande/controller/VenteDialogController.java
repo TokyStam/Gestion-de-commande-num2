@@ -150,7 +150,8 @@ public class VenteDialogController implements Initializable {
         Produit produit;
         ItemeDeVente itemeDeVente = new ItemeDeVente();
         
-        if(comboBoxProduit.getSelectionModel().getSelectedItem() != null && textFieldQteProduit.getText() != null){
+        if(comboBoxProduit.getSelectionModel().getSelectedItem() != null &&
+                (textFieldQteProduit.getText() != null && Double.parseDouble(textFieldQteProduit.getText()) != 0)){
             produit = (Produit) comboBoxProduit.getSelectionModel().getSelectedItem();
             if(!isProduitExist(vente.getItemeDeVente(), produit)){
                 if(produit.getQteEnStk() >= Integer.parseInt(textFieldQteProduit.getText())){

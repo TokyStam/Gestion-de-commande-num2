@@ -2,3 +2,12 @@
 .button-menu:hover{
    -fx-background-color: black;
 }
+
+.anchorPane-admin{
+     -fx-border-color: 
+        transparent
+        transparent
+        derive(#aaaaaa, 80%) 
+        transparent;
+}
+

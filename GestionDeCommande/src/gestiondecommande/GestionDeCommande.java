@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package gestiondecommande;
-
+import gestiondecommande.model.domain.Convert;
 import gestiondecommande.controller.ConteneurController;
 import gestiondecommande.model.dao.CategorieDao;
 import gestiondecommande.model.dao.ProduitDao;
@@ -37,11 +37,13 @@ public class GestionDeCommande extends Application {
         dialogStage.setResizable(false);
         Scene scene = new Scene(page);
         dialogStage.setScene(scene);
+        dialogStage.initStyle(StageStyle.UNDECORATED);
         // Set the user into the controller.
         ConteneurController controller = loader.getController();
         controller.setStage(dialogStage);
         // Show the dialog and wait until the user closes it
         dialogStage.show();
+
         //----------------------------------
 //        Parent root = FXMLLoader.load(getClass().getResource("view/conteneur.fxml"));
 //        

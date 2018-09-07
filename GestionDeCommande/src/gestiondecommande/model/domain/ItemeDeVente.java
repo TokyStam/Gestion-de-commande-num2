@@ -16,6 +16,7 @@ public class ItemeDeVente implements Serializable{
     private Produit produit;
     private Double QteCommande;
     private Double SValeur;
+    
 
     public Vente getVente() {
         return vente;

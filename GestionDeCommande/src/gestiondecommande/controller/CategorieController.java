@@ -24,6 +24,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.Pagination;
 import javafx.scene.control.TableColumn;
@@ -114,7 +115,7 @@ public class CategorieController implements Initializable {
        
         listeCategorie = categorieDao.listeCategorie();
         
-         int rowParPage = 2;
+         int rowParPage = 4;
          int addPagSuplem;
          //verifier si le nombre de ligne dans la table est impaire 
          if(listeCategorie.size() % 2 == 0 ) addPagSuplem = 0;
@@ -148,10 +149,19 @@ public class CategorieController implements Initializable {
      // suprimer un Produit
     @FXML
     public void handleButtonDelete() throws IOException{
+        
         Categorie categorie = (Categorie) tabelViewCategorie.getSelectionModel().getSelectedItem();
         if(categorie != null){
+            // Show the error message.
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Suprimer une Categorie");
+            alert.setContentText("Voulez vous vraiment Suprimer '"+ categorie.getDesignation() + "'");
+            alert.showAndWait();
+            if(alert.getResult() == ButtonType.OK){
                 categorieDao.delete(categorie);
                 pagination.setPageFactory(this::afficherTableViewCategorie);
+            }
+                
         }else{
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("Aucun categorie selectionne!!");

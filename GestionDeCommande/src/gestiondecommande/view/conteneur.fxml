@@ -5,8 +5,6 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
@@ -22,6 +20,24 @@
                <children>
                   <VBox layoutX="-7.0" layoutY="-10.0" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="544.0" prefWidth="181.0" style="-fx-background-color: #001728;" styleClass="button1" stylesheets="@../controller/resource/cssMenu.css" AnchorPane.bottomAnchor="-4.0" AnchorPane.leftAnchor="-7.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="-10.0">
                      <children>
+                        <AnchorPane prefHeight="91.0" prefWidth="189.0">
+                           <children>
+                              <VBox alignment="CENTER" prefHeight="200.0" prefWidth="189.0" spacing="10.0" style="-fx-background-color: #000f1a;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <Button mnemonicParsing="false" style="-fx-background-color: #c4c4c4;" styleClass="button-crud" stylesheets="@DarkTheme1.css" textFill="#ddd9d9">
+                                       <graphic>
+                                          <FontAwesomeIconView fill="#001728" glyphName="USER" size="30" />
+                                       </graphic>
+                                    </Button>
+                                    <Label text="ADMIN" textFill="#c4c4c4">
+                                       <font>
+                                          <Font name="Cambria Math" size="12.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </AnchorPane>
                         <Button fx:id="buttonCategories" alignment="BASELINE_LEFT" maxHeight="65.0" maxWidth="180.0" minHeight="65.0" minWidth="135.0" mnemonicParsing="false" onAction="#handleCategories" prefHeight="65.0" prefWidth="180.0" style="-fx-background-color: #001728;" styleClass="button-menu" text="Categories" textFill="#c4c4c4">
                            <font>
                               <Font size="16.0" />
@@ -33,7 +49,7 @@
                               <Insets left="30.0" />
                            </padding>
                            <graphic>
-                              <FontAwesomeIconView fill="#d0d0d0" glyphName="USER" size="18.0" wrappingWidth="21.0" />
+                              <FontAwesomeIconView fill="#d0d0d0" glyphName="FOLDER" size="18.0" wrappingWidth="21.0" />
                            </graphic>
                            <stylesheets>
                               <URL value="@../controller/resource/cssMenu.css" />
@@ -48,7 +64,7 @@
                               <Insets left="30.0" />
                            </padding>
                            <graphic>
-                              <FontAwesomeIconView fill="#c5c4c4" size="18.0" wrappingWidth="26.0" />
+                              <FontAwesomeIconView fill="#c5c4c4" glyphName="PROD" size="18.0" wrappingWidth="26.0" />
                            </graphic>
                            <stylesheets>
                               <URL value="@../controller/resource/cssMenu.css" />
@@ -63,14 +79,14 @@
                               <Insets left="30.0" />
                            </padding>
                            <graphic>
-                              <FontAwesomeIconView fill="#c5c4c4" glyphName="USER" size="18.0" wrappingWidth="25.0" />
+                              <FontAwesomeIconView fill="#c5c4c4" glyphName="GROUP" size="18.0" wrappingWidth="25.0" />
                            </graphic>
                            <stylesheets>
                               <URL value="@../controller/resource/cssMenu.css" />
                               <URL value="@MenuNavigation.css" />
                            </stylesheets>
                         </Button>
-                        <Button fx:id="buttonVentes" alignment="BASELINE_LEFT" maxHeight="65.0" maxWidth="180.0" minHeight="65.0" minWidth="135.0" mnemonicParsing="false" onAction="#handleVentes" prefHeight="65.0" prefWidth="180.0" style="-fx-background-color: #001728;" styleClass="button-menu" text="Ventes" textFill="#c4c4c4">
+                        <Button fx:id="buttonVentes" alignment="BASELINE_LEFT" maxHeight="65.0" maxWidth="180.0" minHeight="65.0" minWidth="135.0" mnemonicParsing="false" onAction="#handleVentes" prefHeight="65.0" prefWidth="180.0" style="-fx-background-color: #001728;" styleClass="button-menu" text="Commande" textFill="#c4c4c4">
                            <font>
                               <Font size="16.0" />
                            </font>
@@ -99,21 +115,7 @@
                               <URL value="@MenuNavigation.css" />
                            </stylesheets></Button>
                         <FontAwesomeIconView />
-                        <Button fx:id="buttonDiagrammes1" alignment="BASELINE_LEFT" layoutX="10.0" layoutY="310.0" maxHeight="65.0" maxWidth="180.0" minHeight="65.0" minWidth="135.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="180.0" style="-fx-background-color: #001728;" styleClass="button1" stylesheets="@../controller/resource/cssMenu.css" textFill="#c4c4c4" translateY="110.0">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                           <padding>
-                              <Insets left="30.0" />
-                           </padding>
-                           <graphic>
-                              <FontAwesomeIconView fill="#2a44d7" glyphName="GEAR" size="15" />
-                           </graphic>
-                        </Button>
                      </children>
-                     <padding>
-                        <Insets top="40.0" />
-                     </padding>
                   </VBox>
                </children>
             </AnchorPane>
@@ -122,7 +124,10 @@
           <AnchorPane fx:id="anchorPaneConeteneur" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="537.0" prefWidth="867.0" BorderPane.alignment="CENTER">
                <padding>
                   <Insets left="-20.0" />
-               </padding></AnchorPane>
+               </padding>
+               <BorderPane.margin>
+                  <Insets left="4.0" />
+               </BorderPane.margin></AnchorPane>
          </center>
          <top>
             <AnchorPane minHeight="7.0" style="-fx-background-color: #1ca1c5;" BorderPane.alignment="CENTER">
@@ -146,12 +151,13 @@
                   <Font name="Candara" size="13.0" />
                </font>
             </Label>
-            <ImageView fitHeight="55.0" fitWidth="139.0" layoutX="23.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../../../../../../../Logiciel/Icones/icone%203/icons8-business-person-2.png" />
-               </image>
-            </ImageView>
+            <FontAwesomeIconView glyphName="LAPTOP" layoutX="31.0" layoutY="58.0" size="40" wrappingWidth="40.0" />
          </children>
       </AnchorPane>
+      <Button fx:id="buttonFermer" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleFermerFenetreController" prefHeight="25.0" prefWidth="27.0" style="-fx-background-color: #ddd;" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="7.0">
+         <graphic>
+            <FontAwesomeIconView glyphName="CLOSE" size="14" />
+         </graphic>
+      </Button>
    </children>
 </AnchorPane>

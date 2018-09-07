@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
@@ -30,7 +31,7 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <BarChart fx:id="barChartParMois" layoutX="14.0" layoutY="65.0" prefHeight="378.0" prefWidth="782.0">
+                        <BarChart fx:id="barChartParMois" layoutX="156.0" layoutY="65.0" prefHeight="378.0" prefWidth="674.0">
                            <xAxis>
                               <CategoryAxis fx:id="categoryAxis" side="BOTTOM" />
                            </xAxis>
@@ -44,7 +45,7 @@
           </Tab>
           <Tab onSelectionChanged="#handleOngletRapport" text="Rapport">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" stylesheets="@DarkTheme1.css">
                      <children>
                         <SplitPane dividerPositions="0.3653179190751445" layoutX="87.0" layoutY="94.0" prefHeight="508.0" prefWidth="867.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                           <items>
@@ -103,6 +104,9 @@
                                       </columns>
                                     </TableView>
                                  </children>
+                                 <padding>
+                                    <Insets top="30.0" />
+                                 </padding>
                               </AnchorPane>
                           </items>
                         </SplitPane>
@@ -110,7 +114,6 @@
                   </AnchorPane>
             </content>
           </Tab>
-            <Tab text="CA" />
         </tabs>
       </TabPane>
    </children>

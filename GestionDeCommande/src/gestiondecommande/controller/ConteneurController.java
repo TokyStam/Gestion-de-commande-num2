@@ -10,10 +10,13 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.stage.Stage;
@@ -46,6 +49,10 @@ public class ConteneurController implements Initializable {
     private AnchorPane anchorPaneMenuBG;
    
     private Stage stage;
+    @FXML
+    private Button buttonDiagrammes1;
+    @FXML
+    private Button buttonFermer;
 
     public Stage getStage() {
         return stage;
@@ -82,10 +89,10 @@ public class ConteneurController implements Initializable {
         anchorPaneConeteneur.getChildren().setAll(a); 
         
         anchorPaneHover.setTranslateY(0);
-        anchorPaneHover.setTranslateY(45);
+        anchorPaneHover.setTranslateY(95);
         
         anchorPaneMenuBG.setTranslateY(0);
-        anchorPaneMenuBG.setTranslateY(45);
+        anchorPaneMenuBG.setTranslateY(95);
     }
     
     @FXML
@@ -97,10 +104,10 @@ public class ConteneurController implements Initializable {
         anchorPaneConeteneur.getChildren().setAll(a); 
         
         anchorPaneHover.setTranslateY(0);
-        anchorPaneHover.setTranslateY(108);
+        anchorPaneHover.setTranslateY(158);
         
         anchorPaneMenuBG.setTranslateY(0);
-        anchorPaneMenuBG.setTranslateY(108);
+        anchorPaneMenuBG.setTranslateY(158);
     }
     
     @FXML
@@ -112,10 +119,10 @@ public class ConteneurController implements Initializable {
         anchorPaneConeteneur.getChildren().setAll(a);
         
         anchorPaneHover.setTranslateY(0);
-        anchorPaneHover.setTranslateY(173);
+        anchorPaneHover.setTranslateY(223);
          
         anchorPaneMenuBG.setTranslateY(0);
-        anchorPaneMenuBG.setTranslateY(173);
+        anchorPaneMenuBG.setTranslateY(223);
     }
     
     @FXML
@@ -126,10 +133,10 @@ public class ConteneurController implements Initializable {
         VenteController.setStage(stage);
         anchorPaneConeteneur.getChildren().setAll(a); 
         anchorPaneHover.setTranslateY(0);
-        anchorPaneHover.setTranslateY(238);
+        anchorPaneHover.setTranslateY(288);
         
         anchorPaneMenuBG.setTranslateY(0);
-        anchorPaneMenuBG.setTranslateY(238);
+        anchorPaneMenuBG.setTranslateY(288);
     }
     
     @FXML
@@ -139,10 +146,25 @@ public class ConteneurController implements Initializable {
         anchorPaneConeteneur.getChildren().setAll(a);
         
         anchorPaneHover.setTranslateY(0);
-        anchorPaneHover.setTranslateY(304);
+        anchorPaneHover.setTranslateY(354);
         
         anchorPaneMenuBG.setTranslateY(0);
-        anchorPaneMenuBG.setTranslateY(304);
+        anchorPaneMenuBG.setTranslateY(354);
     }
+
+    @FXML
+    private void handleFermerFenetreController(ActionEvent event) {
+         // Show the error message.
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Fermeture de la fenetre");
+            alert.setContentText("Voulez vous vraiment fermer la fenetre ??");
+            alert.showAndWait();
+            if(alert.getResult() == ButtonType.OK){
+                    stage.close();
+            }
+      
+    }
+    
+ 
     
 }
