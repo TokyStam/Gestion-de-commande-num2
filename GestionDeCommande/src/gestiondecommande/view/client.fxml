@@ -63,7 +63,7 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <SplitPane dividerPositions="0.5441478439425051" orientation="VERTICAL" prefHeight="488.0" prefWidth="279.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <SplitPane dividerPositions="0.5441478439425051" orientation="VERTICAL" prefHeight="488.0" prefWidth="279.0" styleClass="left-container" stylesheets="@DarkTheme1.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                           <items>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                                  <children>

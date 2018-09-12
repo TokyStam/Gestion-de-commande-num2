@@ -215,6 +215,51 @@ public class VenteDao {
         }
         return retourner;
     }
+     public List<String> listeDesCommandeurs(){
+        String sql = "select user.nom as nom from vente, user where (user.id = vente.codeUser) group by user.nom";
+            PreparedStatement st;
+            List<String> resultat = new ArrayList<>();
+        try {
+            st = cnx.prepareStatement(sql);
+            ResultSet res = st.executeQuery();
+            while(res.next()){
+                resultat.add(res.getString("nom"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProduitDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         return resultat;
+     
+    }
+
+     public Map<Integer, ArrayList> ListeCAparAns(){
+         String sql = "SELECT user.nom as nom, SUM(Valeur) as CA, EXTRACT(year from dateVente) as ans FROM vente, user WHERE (user.id = vente.codeUser ) GROUP BY ans, user.nom ORDER BY ans";
+         Map<Integer, ArrayList> retourner = new HashMap();
+          try {
+            PreparedStatement st;
+            st = cnx.prepareStatement(sql);
+            ResultSet res = st.executeQuery();
+            while(res.next()){
+                ArrayList lien = new ArrayList();
+                if(!retourner.containsKey(res.getInt("ans"))){
+                    
+                    lien.add(res.getString("nom"));
+                    lien.add(res.getInt("CA"));
+                    retourner.put(res.getInt("ans"), lien);
+                }else{
+                    ArrayList LienNouveau = retourner.get(res.getInt("ans"));
+                     LienNouveau.add(res.getString("nom"));
+                     LienNouveau.add(res.getInt("CA"));
+                }
+            }
+           
+        } catch (SQLException ex) {
+            Logger.getLogger(ProduitDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return retourner;
+    }
+    
+    
     
    //creer un nouvereau utilisateut
     public boolean update(Vente vente){

@@ -219,7 +219,7 @@ public class ListeProduitDialogController implements Initializable {
       table.addCell("");
       table.addCell("");
       table.addCell("Totale");
-      table.addCell(Double.toString(vente.getTValeur()));
+      table.addCell(Double.toString(vente.getTValeur()) + " Ar");
       
       return table;  
   }

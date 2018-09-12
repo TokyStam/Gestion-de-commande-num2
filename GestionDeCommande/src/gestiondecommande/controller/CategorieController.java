@@ -118,7 +118,7 @@ public class CategorieController implements Initializable {
          int rowParPage = 4;
          int addPagSuplem;
          //verifier si le nombre de ligne dans la table est impaire 
-         if(listeCategorie.size() % 2 == 0 ) addPagSuplem = 0;
+         if(listeCategorie.size() % 4 == 0 ) addPagSuplem = 0;
          else addPagSuplem = 1;
          
          pagination.setPageCount((listeCategorie.size() / rowParPage) +addPagSuplem);

@@ -96,22 +96,22 @@ public class GraphVenteParMoisController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         
-        String[] arrayMois = {"janv", "fev", "mars", "avri", "mai", "jun", "juil", "aout", "sept", "oct", "nov", "dec"};
-        observableListeMois.addAll(arrayMois);
+        List<String> listeCommandeur = venteDao.listeDesCommandeurs();
+        observableListeMois.addAll(listeCommandeur);
         
         categoryAxis.setCategories(observableListeMois);
-        Map<Integer, ArrayList> dates = venteDao.ListeQteVenteParMoi();
+        Map<Integer, ArrayList> dates = venteDao.ListeCAparAns();
         
         for( Map.Entry<Integer, ArrayList> dateItem: dates.entrySet()){
             XYChart.Series<String, Integer> series = new XYChart.Series<>();
             series.setName(dateItem.getKey().toString());
             
             for(int i = 0; i < dateItem.getValue().size(); i = i + 2){
-                String mois;
-                Integer quantite;
-                mois = retourneNomMois((int) dateItem.getValue().get(i));
+                String nom;
+                Integer quantite; 
+                nom = (String) dateItem.getValue().get(i);
                 quantite = (Integer) dateItem.getValue().get(i + 1);
-                series.getData().add(new XYChart.Data<>(mois, quantite));
+                series.getData().add(new XYChart.Data<>(nom, quantite));
             }
             barChartParMois.getData().add(series);
         }
